@@ -2,6 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { MatSliderModule } from "@angular/material/slider";
 import { MatListModule } from "@angular/material/list";
+import { MatInputModule } from "@angular/material/input";
 
 import { HttpClientModule } from "@angular/common/http";
 
@@ -24,6 +25,7 @@ import { TodoComponent } from "./todo/todo.component";
     MatSliderModule,
     MatListModule,
     HttpClientModule,
+    MatInputModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
       dataEncapsulation: false,
     }),
