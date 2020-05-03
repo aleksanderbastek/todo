@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { MatSliderModule } from "@angular/material/slider";
 import { MatListModule } from "@angular/material/list";
 import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
 
 import { HttpClientModule } from "@angular/common/http";
 
@@ -26,6 +27,7 @@ import { TodoComponent } from "./todo/todo.component";
     MatListModule,
     HttpClientModule,
     MatInputModule,
+    MatButtonModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
       dataEncapsulation: false,
     }),

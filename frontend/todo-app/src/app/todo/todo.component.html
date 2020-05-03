@@ -1,7 +1,10 @@
 <mat-form-field appearance="fill">
-  <mat-label>Input</mat-label>
+  <mat-label>Wpisz nowe zadanie</mat-label>
   <input matInput />
 </mat-form-field>
+
+<button mat-raised-button color="primary" id="button1">Dodaj</button>
+
 <mat-selection-list>
   <mat-list-option *ngFor="let task of tasks">
     {{ task.name }}
