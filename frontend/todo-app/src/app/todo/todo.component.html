@@ -1,9 +1,18 @@
 <mat-form-field appearance="fill">
   <mat-label>Wpisz nowe zadanie</mat-label>
-  <input matInput />
+  <input matInput #taskName />
+  <!--WAŻNE!!! Przez znak # można definiować wartości formularzy-->
+  <!--podwójne oznaczenie może być problem-->
 </mat-form-field>
 
-<button mat-raised-button color="primary" id="button1">Dodaj</button>
+<button
+  mat-raised-button
+  color="primary"
+  id="button1"
+  (click)="addTask(taskName.value); taskName.value = ''"
+>
+  Dodaj
+</button>
 
 <mat-selection-list>
   <mat-list-option *ngFor="let task of tasks">

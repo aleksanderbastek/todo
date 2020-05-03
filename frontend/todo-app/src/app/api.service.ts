@@ -36,7 +36,9 @@ export class ApiService {
   }
   addTask(Task: task): Observable<task> {
     return this.http.post<task>(this.tasksUrl, Task, this.httpOptions).pipe(
-      tap((newTask: task) => console.log(`added task ${newTask}`)),
+      tap((newTask: task) =>
+        console.log(`added task ${newTask.id} ${newTask.name}`)
+      ),
       catchError(this.handleError<task>("addTask"))
     ); //dodawanie zadań
   }
