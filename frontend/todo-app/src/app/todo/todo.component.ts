@@ -26,7 +26,10 @@ export class TodoComponent implements OnInit {
       this.tasks.push(task);
     });
   }
-
+  deleteTask(Task: task) {
+    this.tasks.filter((t) => t !== Task);
+    this.api.deleteTask(Task).subscribe();
+  }
   ngOnInit(): void {
     this.getTasks();
   }
