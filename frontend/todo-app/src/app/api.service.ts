@@ -42,4 +42,14 @@ export class ApiService {
       catchError(this.handleError<task>("addTask"))
     ); //dodawanie zadań
   }
+
+  deleteTask(Task: task | number): Observable<task> {
+    const id = typeof Task === "number" ? Task : Task.id;
+    const url = `${this.tasksUrl}/${id}`;
+
+    return this.http.delete<task>(url, this.httpOptions).pipe(
+      tap((_) => console.log(`deleted task id = ${id}`)),
+      catchError(this.handleError<task>("deleteTask"))
+    );
+  }
 }
