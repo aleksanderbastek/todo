@@ -9,12 +9,12 @@ import { task } from "./task";
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const tasks = [
-      { id: 11, name: "Posprzatac dom" },
-      { id: 12, name: "Zrobic objad" },
-      { id: 13, name: "Zmyc naczynia" },
-      { id: 14, name: "umyc kiebel" },
-      { id: 15, name: "narabac drewno" },
-      { id: 16, name: "aaa" },
+      { id: 1, name: "Posprzatac dom" },
+      { id: 2, name: "Zrobic objad" },
+      { id: 3, name: "Zmyc naczynia" },
+      { id: 4, name: "umyc kiebel" },
+      { id: 5, name: "narabac drewno" },
+      { id: 6, name: "aaa" },
     ];
     return { tasks };
   }
@@ -22,6 +22,6 @@ export class InMemoryDataService implements InMemoryDbService {
   genId(tasks: task[]): number {
     return tasks.length > 0
       ? Math.max(...tasks.map((task) => task.id)) + 1
-      : 11;
+      : 1;
   }
 }
