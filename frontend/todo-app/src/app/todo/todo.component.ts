@@ -11,7 +11,7 @@ import { task } from "../task";
 export class TodoComponent implements OnInit {
   tasks: task[];
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService) { }
 
   getTasks(): void {
     this.api.getTasks().subscribe((tasks) => (this.tasks = tasks));
@@ -26,8 +26,8 @@ export class TodoComponent implements OnInit {
       this.tasks.push(task);
     });
   }
-  deleteTask(Task: task) {
-    this.tasks.filter((t) => t !== Task);
+  deleteTask(Task: task): void {
+    this.tasks = this.tasks.filter(t => t !== Task);
     this.api.deleteTask(Task).subscribe();
   }
   ngOnInit(): void {
