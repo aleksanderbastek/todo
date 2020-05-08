@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { task } from '../task';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-board',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoardComponent implements OnInit {
 
-  constructor() { }
+  boardlist: task[];
+
+  constructor(private api: ApiService) { }
+
+  getBoard(): void {
+    this.api.getBoard().subscribe(board => this.boardlist = board);
+  }
 
   ngOnInit(): void {
+    this.getBoard();
   }
 
 }
