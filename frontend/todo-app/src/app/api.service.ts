@@ -12,11 +12,12 @@ import { task } from "./task";
 })
 export class ApiService {
   private tasksUrl = "api/tasks";
+  private boardUrl = "api/board";
 
   httpOptions = {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
@@ -50,6 +51,13 @@ export class ApiService {
     return this.http.delete<task>(url, this.httpOptions).pipe(
       tap((_) => console.log(`deleted task id = ${id}`)),
       catchError(this.handleError<task>("deleteTask"))
+    );
+  }
+
+  getBoard(): Observable<task[]> {
+    return this.http.get<task[]>(this.boardUrl).pipe(
+      tap((_) => console.log("fetched board")),
+      catchError(this.handleError<task[]>("getBoard", []))
     );
   }
 }
