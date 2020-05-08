@@ -16,12 +16,24 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 5, name: "narabac drewno" },
       { id: 6, name: "aaa" },
     ];
-    return { tasks };
+    const board = [
+      { id: 1, name: "plan dnia" },
+      { id: 2, name: "konkretne" },
+      { id: 3, name: "programowanie" },
+      { id: 4, name: "studia" },
+    ];
+    return { tasks, board };
   }
 
-  genId(tasks: task[]): number {
+
+  genIdforTasks(tasks: task[]): number {
     return tasks.length > 0
       ? Math.max(...tasks.map((task) => task.id)) + 1
+      : 1;
+  }
+  genIdforBoard(board: task[]): number {
+    return board.length > 0
+      ? Math.max(...board.map((b) => b.id)) + 1
       : 1;
   }
 }
