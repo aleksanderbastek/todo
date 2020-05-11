@@ -19,10 +19,10 @@ import { InMemoryDataService } from "./in-memory-data.service";
 
 import { BoardComponent } from "./board/board.component";
 import { TodoComponent } from "./todo/todo.component";
-import { MainComponent } from './main/main.component';
+import { StartComponent } from './start/start.component';
 
 @NgModule({
-  declarations: [AppComponent, BoardComponent, TodoComponent, MainComponent],
+  declarations: [AppComponent, BoardComponent, TodoComponent, StartComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { BoardComponent } from "./board/board.component";
 import { TodoComponent } from "./todo/todo.component";
+import { StartComponent } from "./start/start.component";
 
 const routes: Routes = [
   {
@@ -15,7 +16,13 @@ const routes: Routes = [
     component: TodoComponent,
     data: { title: "todo list" },
   },
-  { path: "", redirectTo: "/board", pathMatch: "full" },
+  {
+    path: "start",
+    component: StartComponent,
+    data: { title: "start" }
+  },
+
+  { path: "", redirectTo: "/start", pathMatch: "full" },
 ];
 
 @NgModule({
