@@ -1,0 +1,31 @@
+#delete {
+    float: left;
+    position: relative;
+    float: left;
+    margin: 0px;
+  }
+#list {
+    position: relative;
+    float: left;
+    width: 80%;
+}
+#input{
+    width:80%;
+    margin-left: 6%;
+}
+button#button1 {
+    position: relative;
+    bottom: 8px;
+    height: 50px;
+}
+a{
+    display: block;
+    float: right;
+    font-size: large;
+    text-decoration: unset;
+    color: black;
+}
+div{
+    position: relative;
+    left: 7%;
+}
