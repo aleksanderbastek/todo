@@ -14,7 +14,7 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 3, name: "Zmyc naczynia" },
       { id: 4, name: "umyc kiebel" },
       { id: 5, name: "narabac drewno" },
-      { id: 6, name: "aaa" },
+      { id: 666, name: "aaa" },
     ];
     const board = [
       { id: 1, name: "plan dnia" },
