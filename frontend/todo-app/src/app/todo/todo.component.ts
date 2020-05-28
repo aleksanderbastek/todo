@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../api.service";
 
 import { task } from "../task";
+import { updateLocalStorageTasks } from "../app.localStorage";
 
 @Component({
   selector: "app-todo",
@@ -24,11 +25,13 @@ export class TodoComponent implements OnInit {
     }
     this.api.addTask({ name } as task).subscribe((task) => {
       this.tasks.push(task);
+		updateLocalStorageTasks('tasks', this.tasks);
     });
   }
   deleteTask(Task: task): void {
     this.tasks = this.tasks.filter(t => t !== Task);
     this.api.deleteTask(Task).subscribe();
+		updateLocalStorageTasks('tasks', this.tasks);
   }
   ngOnInit(): void {
     this.getTasks();
