@@ -2,26 +2,27 @@ import { Injectable } from "@angular/core";
 
 import { InMemoryDbService } from "angular-in-memory-web-api";
 import { task } from "./task";
+import { setLocalStorage } from "./app.localStorage";
 
 @Injectable({
   providedIn: "root",
 })
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
-    const tasks = [
+    const tasks = setLocalStorage('tasks', [
       { id: 1, name: "Posprzatac dom" },
       { id: 2, name: "Zrobic objad" },
       { id: 3, name: "Zmyc naczynia" },
       { id: 4, name: "umyc kiebel" },
       { id: 5, name: "narabac drewno" },
       { id: 6, name: "aaa" },
-    ];
-    const board = [
+    ]);
+    const board = setLocalStorage('board', [
       { id: 1, name: "plan dnia" },
       { id: 2, name: "konkretne" },
       { id: 3, name: "programowanie" },
       { id: 4, name: "studia" },
-    ];
+    ]);
     return { tasks, board };
   }
 
