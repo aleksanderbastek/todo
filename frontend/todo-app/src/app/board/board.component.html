@@ -1,7 +1,32 @@
-<p>board works!</p>
+<mat-form-field appearance="fill" id="input">
+    <mat-label>Wpisz nową listę</mat-label>
+    <input matInput #listName />
+    <!--WAŻNE!!! Przez znak # można definiować wartości formularzy-->
+    <!--podwójne oznaczenie może być problem-->
+</mat-form-field>
 
-<mat-list>
-    <mat-list-item *ngFor="let boardP of boardlist"> {{boardP.name}} </mat-list-item>
-</mat-list>
+<!--(click)="addTask(listName.value); listName.value = ''"-->
+<button mat-raised-button color="primary" id="button1">
+    Dodaj
+</button>
 
-<app-todo></app-todo>
+
+<div id="ld">
+    <!--
+    <mat-list id="delete">
+        <mat-list-item *ngFor="let boardP of boardlist">
+            <button mat-icon-button color="warn" id="delete" (click)="deleteTask(boardP)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-list-item>
+    </mat-list>
+-->
+    <mat-card id="list" *ngFor="let boardP of boardlist">
+        <a routerLink="/todo">{{boardP.name}}</a>
+        <button mat-icon-button color="warn" id="delete">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-card>
+
+</div>
+<!--<app-todo></app-todo>-->
