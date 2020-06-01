@@ -14,4 +14,3 @@ services:
       - ASPNETCORE_URLS=http://+:5000
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
-      - './:/app'
