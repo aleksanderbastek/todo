@@ -1,5 +1,4 @@
-﻿using System;
-using HotChocolate;
+﻿using HotChocolate;
 using HotChocolate.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,10 +7,11 @@ using Microsoft.Extensions.Hosting;
 using TodoApp.GraphQL.Hello;
 using TodoApp.GraphQL.Hello.Mutations;
 using TodoApp.GraphQL.Hello.Queries;
+using HotChocolate.AspNetCore.Voyager;
 
 namespace TodoApp.Graphql
 {
-    public static class GraphQLServiceSetup
+	public static class GraphQLServiceSetup
     {
         public static IServiceCollection AddGraphQLSetup(this IServiceCollection services)
         {
@@ -34,7 +34,9 @@ namespace TodoApp.Graphql
             app.UseGraphQL("/graphql");
 
             if (env.IsDevelopment()) {
-                app.UsePlayground("/graphql", "/graphql/playground");
+                app
+                    .UsePlayground("/graphql", "/graphql/playground")
+                    .UseVoyager("/graphql", "/graphql/voyager");
             }
 
             return app;

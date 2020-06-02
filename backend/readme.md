@@ -7,7 +7,8 @@
 ### Then you can access following services:
 - Backend: [http://localhost:5000](http://localhost:5000)
 - GraphQL endpoint: [http://localhost:5000/graphql](http://localhost:5000/graphql)
-- GraphQL playground: [http://localhost:5000/graphql/playground](http://localhost:5000/graphql/playground)
+- GraphQL Playground: [http://localhost:5000/graphql/playground](http://localhost:5000/graphql/playground)
+- GraphQL Voyager: [http://localhost:5000/graphql/voyager](http://localhost:5000/graphql/voyager)
 
 ## Example queries for quick start:
 - "Hello world! :)"
