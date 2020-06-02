@@ -2,15 +2,16 @@
 version: '3.4'
 
 services:
-  todoapp:
-    image: todoapp
+  todoapp-server:
+    image: todoapp-server
+    container_name: TodoApp.Server
     build:
       context: .
-      dockerfile: TodoApp.Server/Dockerfile
+      dockerfile: TodoApp.Server/Dockerfile.debug
     ports:
       - 5000:5000
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:5000
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
+      - ./:/src
