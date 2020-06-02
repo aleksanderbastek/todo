@@ -5,7 +5,7 @@
    "version": "0.2.0",
    "configurations": [
 		{
-			"name": "Docker .NET Core Attach",
+			"name": "Attach to TodoApp.Server",
 			"type": "docker",
 			"request": "attach",
 			"platform": "netCore",
@@ -15,7 +15,8 @@
 			"netCore": {
 				"debuggerPath": "/remote_debugger/vsdbg",
 			},
-			"processName": "TodoApp.Server"
+			"processName": "TodoApp.Server",
+			"containerName": "TodoApp.Server"
 		}
 	]
 }
