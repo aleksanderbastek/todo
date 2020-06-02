@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TodoApp.GraphQL.Attributes\TodoApp.GraphQL.Attributes.csproj" />
     <ProjectReference Include="..\TodoApp.GraphQL.Types\TodoApp.GraphQL.Types.csproj" />
   </ItemGroup>
 
