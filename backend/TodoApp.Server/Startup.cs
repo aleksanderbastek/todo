@@ -29,8 +29,11 @@ namespace TodoApp.Server
                         {
                             await context.Response.WriteAsync(
                                 "<html><body>" +
-                                "<h1>This is a GraphQL backend</h1> <p style=\"font-size: 1.5rem\">Access GraphQL endpoint under /graphql " + 
-                                "or if you want to play with it go to <a href=\"/graphql/playground\">/graphql/playground</a>.</p>" +
+                                "<h1>This is a GraphQL backend</h1>" +
+                                "<p style=\"font-size: 1.5rem\"> " + 
+                                "GraphQL endpoint: <a href=\"/graphql\">/graphql</a>.<br />" +
+                                "GraphQL Playground: <a href=\"/graphql/playground\">/graphql/playground</a>.<br />" +
+                                "GraphQL Voyager: <a href=\"/graphql/voyager\">/graphql/voyager</a>.</p>" +
                                 "</body></html>"
                             );
                         });
