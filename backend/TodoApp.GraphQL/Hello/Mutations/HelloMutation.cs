@@ -1,12 +1,10 @@
-using System;
 using HotChocolate;
-using HotChocolate.Types;
 using TodoApp.GraphQL.Hello.Mutations.Models;
+using TodoApp.GraphQL.Types;
 
 namespace TodoApp.GraphQL.Hello.Mutations
 {
-    [ExtendObjectType(Name = "Mutation")]
-    public class HelloMutation
+    public class HelloMutation: Mutation
     {
 		/// <summary>
 		/// Changes "Hello" word used in sayHelloFor query.

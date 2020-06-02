@@ -1,10 +1,9 @@
 using HotChocolate;
-using HotChocolate.Types;
+using TodoApp.GraphQL.Types;
 
 namespace TodoApp.GraphQL.Hello.Queries
 {
-    [ExtendObjectType(Name = "Query")]
-    public class HelloQuery
+    public class HelloQuery: Query
     {
         /// <summary>
         /// Should return "Hello world! :)" string.

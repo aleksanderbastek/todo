@@ -1,11 +1,11 @@
 using System;
-using HotChocolate.Types;
 using TodoApp.GraphQL.Hello.Queries.Models;
+using TodoApp.GraphQL.Types;
 
 namespace TodoApp.GraphQL.Hello.Queries
 {
-    [ExtendObjectType(Name = "Query")]
-    public class UserQuery {
+    public class UserQuery: Query
+	{
         /// <summary>
         /// Returns fake user data.
         /// This is example of complex query type.
