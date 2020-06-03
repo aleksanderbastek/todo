@@ -1,13 +1,44 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.Server", "TodoApp.Server\TodoApp.Server.csproj", "{806A5BA8-D9AF-468A-B555-03188262A5AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.Server", "TodoApp.Server\TodoApp.Server.csproj", "{806A5BA8-D9AF-468A-B555-03188262A5AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.GraphQL", "TodoApp.GraphQL\TodoApp.GraphQL.csproj", "{CB3DBA56-F412-4465-A9DD-63E28225460F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.GraphQL", "TodoApp.GraphQL\TodoApp.GraphQL.csproj", "{CB3DBA56-F412-4465-A9DD-63E28225460F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.GraphQL.Types", "TodoApp.GraphQL.Types\TodoApp.GraphQL.Types.csproj", "{8912E30C-4780-4672-970B-3CCEFFFBBDB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.GraphQL.Types", "TodoApp.GraphQL.Types\TodoApp.GraphQL.Types.csproj", "{8912E30C-4780-4672-970B-3CCEFFFBBDB6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contents", "Contents", "{8E24F34A-0F40-4983-B66E-13335B3815B0}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		docker-compose.debug.yml = docker-compose.debug.yml
+		docker-compose.yml = docker-compose.yml
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".vscode", ".vscode", "{65E63132-7AAF-4649-8C32-8C2A5D351311}"
+	ProjectSection(SolutionItems) = preProject
+		.vscode\launch.json = .vscode\launch.json
+		.vscode\settings.json = .vscode\settings.json
+		.vscode\tasks.json = .vscode\tasks.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-explorer", "solution-explorer", "{C4CB6D72-A80C-442D-90AA-342D3C8FEAC5}"
+	ProjectSection(SolutionItems) = preProject
+		.vscode\solution-explorer\class.cs-template = .vscode\solution-explorer\class.cs-template
+		.vscode\solution-explorer\class.ts-template = .vscode\solution-explorer\class.ts-template
+		.vscode\solution-explorer\class.vb-template = .vscode\solution-explorer\class.vb-template
+		.vscode\solution-explorer\default.ts-template = .vscode\solution-explorer\default.ts-template
+		.vscode\solution-explorer\enum.cs-template = .vscode\solution-explorer\enum.cs-template
+		.vscode\solution-explorer\interface.cs-template = .vscode\solution-explorer\interface.cs-template
+		.vscode\solution-explorer\interface.ts-template = .vscode\solution-explorer\interface.ts-template
+		.vscode\solution-explorer\template-list.json = .vscode\solution-explorer\template-list.json
+		.vscode\solution-explorer\template-parameters.js = .vscode\solution-explorer\template-parameters.js
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,9 +48,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{806A5BA8-D9AF-468A-B555-03188262A5AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -58,5 +86,15 @@ Global
 		{8912E30C-4780-4672-970B-3CCEFFFBBDB6}.Release|x64.Build.0 = Release|Any CPU
 		{8912E30C-4780-4672-970B-3CCEFFFBBDB6}.Release|x86.ActiveCfg = Release|Any CPU
 		{8912E30C-4780-4672-970B-3CCEFFFBBDB6}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{65E63132-7AAF-4649-8C32-8C2A5D351311} = {8E24F34A-0F40-4983-B66E-13335B3815B0}
+		{C4CB6D72-A80C-442D-90AA-342D3C8FEAC5} = {65E63132-7AAF-4649-8C32-8C2A5D351311}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F417C45-1C6F-42B6-82D8-A361561F82CE}
 	EndGlobalSection
 EndGlobal
