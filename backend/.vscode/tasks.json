@@ -4,12 +4,18 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "Build TodoApp in debug configuration",
+			"type": "shell",
+			"command": "docker-compose -f docker-compose.debug.yml build"
+		},
+		{
 			"label": "Run TodoApp in debug configuration",
 			"type": "shell",
+			"command": "docker-compose -f docker-compose.debug.yml up --remove-orphans",
+			"dependsOn": ["Build TodoApp in debug configuration"],
 			"runOptions": {
 				"runOn": "folderOpen"
 			},
-			"command": "docker-compose -f docker-compose.debug.yml up --remove-orphans",
 			"problemMatcher": []
 		}
 	]
