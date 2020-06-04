@@ -16,7 +16,8 @@
         "name": "ts-graphql-plugin",
         "schema": {
           "http": {
-            "url": "http://localhost:5000/graphql"
+            "url": "http://localhost:5000/graphql",
+            "method": "POST"
           }
         },
         "tag": "gql"
