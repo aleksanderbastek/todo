@@ -11,9 +11,21 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
+    "plugins": [
+      {
+        "name": "ts-graphql-plugin",
+        "schema": {
+          "http": {
+            "url": "http://localhost:5000/graphql"
+          }
+        },
+        "tag": "gql"
+      }
+    ],
     "lib": [
       "es2018",
-      "dom"
+      "dom",
+      "esnext.asynciterable"
     ]
   },
   "angularCompilerOptions": {
