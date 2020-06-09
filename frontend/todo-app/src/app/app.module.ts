@@ -14,12 +14,16 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api"; //api
-import { InMemoryDataService } from "./in-memory-data.service";
+
 
 import { BoardComponent } from "./board/board.component";
 import { TodoComponent } from "./todo/todo.component";
 import { StartComponent } from './start/start.component';
+
+import { GraphQLModule } from './graphql.module';
+import { ApolloModule, APOLLO_OPTIONS } from "apollo-angular";
+import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
+import { InMemoryCache } from "apollo-cache-inmemory";
 
 @NgModule({
   declarations: [AppComponent, BoardComponent, TodoComponent, StartComponent],
@@ -34,11 +38,24 @@ import { StartComponent } from './start/start.component';
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
-      dataEncapsulation: false,
-    }),
+
+    ApolloModule,
+    HttpLinkModule,
+    GraphQLModule,
   ],
-  providers: [],
+  providers: [{
+    provide: APOLLO_OPTIONS,
+    useFactory: (httpLink: HttpLink) => {
+      return {
+        cache: new InMemoryCache(),
+        link: httpLink.create({
+          uri: "http://localhost:5000/graphql",
+          method: "POST" // Wywalić ten post w razie czego
+        })
+      }
+    },
+    deps: [HttpLink]
+  }],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

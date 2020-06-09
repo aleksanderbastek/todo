@@ -13,12 +13,15 @@ export class BoardComponent implements OnInit {
 
   constructor(private api: ApiService) { }
 
+  // do zainspirowania się
+
+  /*
   getBoard(): void {
     this.api.getBoard().subscribe(board => this.boardlist = board);
   }
-
+  */
   ngOnInit(): void {
-    this.getBoard();
+
   }
 
 }

@@ -13,24 +13,27 @@ export class TodoComponent implements OnInit {
 
   constructor(private api: ApiService) { }
 
-  getTasks(): void {
-    this.api.getTasks().subscribe((tasks) => (this.tasks = tasks));
-  }
+  // do zainspirowania się
 
-  addTask(name: string): void {
-    name = name.trim();
-    if (!name) {
-      return;
+  /*
+    getTasks(): void {
+      this.api.getTasks().subscribe((tasks) => (this.tasks = tasks));
     }
-    this.api.addTask({ name } as task).subscribe((task) => {
-      this.tasks.push(task);
-    });
-  }
-  deleteTask(Task: task): void {
-    this.tasks = this.tasks.filter(t => t !== Task);
-    this.api.deleteTask(Task).subscribe();
-  }
+
+    addTask(name: string): void {
+      name = name.trim();
+      if (!name) {
+        return;
+      }
+      this.api.addTask({ name } as task).subscribe((task) => {
+        this.tasks.push(task);
+      });
+    }
+    deleteTask(Task: task): void {
+      this.tasks = this.tasks.filter(t => t !== Task);
+      this.api.deleteTask(Task).subscribe();
+    }
+    */
   ngOnInit(): void {
-    this.getTasks();
   }
 }

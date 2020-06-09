@@ -5,19 +5,24 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
 
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+
 import { task } from "./task";
 
 @Injectable({
   providedIn: "root",
 })
 export class ApiService {
+  /*
   private tasksUrl = "api/tasks";
   private boardUrl = "api/board";
-
+  */
   httpOptions = {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, private apollo: Apollo) { }
 
   private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
@@ -29,6 +34,9 @@ export class ApiService {
     };
   }
 
+  // do zainspirowania się
+
+  /*
   getTasks(): Observable<task[]> {
     return this.http.get<task[]>(this.tasksUrl).pipe(
       tap((_) => console.log("fetched tasks")),
@@ -60,4 +68,6 @@ export class ApiService {
       catchError(this.handleError<task[]>("getBoard", []))
     );
   }
+  */
+
 }
