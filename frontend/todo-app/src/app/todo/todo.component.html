@@ -5,16 +5,17 @@
   <!--podwójne oznaczenie może być problem-->
 </mat-form-field>
 
-<button mat-raised-button color="primary" id="button1" (click)="addTask(taskName.value); taskName.value = ''">
+<!-- Dodać  (click)=" addTask(taskName.value)"-->
+<button mat-raised-button color="primary" id="button1; taskName.value = ''">
   Dodaj
 </button>
 
 
 <div id=ld>
-  <mat-list id="delete">
+  <mat-list id=" delete">
     <mat-list-item *ngFor="let task of tasks">
-      <button mat-icon-button color="warn" id="delete" (click)="deleteTask(task)"
-        aria-label="Example icon button with a heart icon">
+      <!-- Dodać  (click)="deleteTask(task)-->
+      <button mat-icon-button color="warn" id="delete" aria-label="Example icon button with a heart icon">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-list-item>
@@ -26,9 +27,3 @@
     </mat-list-option>
   </mat-selection-list>
 </div>
-
-<!--
-  <p>
-    Options selected: {{shoes.selectedOptions.selected.length}}
-  </p>
--->
