@@ -40,6 +40,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-explorer", "soluti
 		.vscode\solution-explorer\template-parameters.js = .vscode\solution-explorer\template-parameters.js
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.Debugging", "TodoApp.Debugging\TodoApp.Debugging.csproj", "{ACBC5DD3-195E-4C66-9E9F-ACEC29248F08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,18 @@ Global
 		{8912E30C-4780-4672-970B-3CCEFFFBBDB6}.Release|x64.Build.0 = Release|Any CPU
 		{8912E30C-4780-4672-970B-3CCEFFFBBDB6}.Release|x86.ActiveCfg = Release|Any CPU
 		{8912E30C-4780-4672-970B-3CCEFFFBBDB6}.Release|x86.Build.0 = Release|Any CPU
+		{ACBC5DD3-195E-4C66-9E9F-ACEC29248F08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACBC5DD3-195E-4C66-9E9F-ACEC29248F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACBC5DD3-195E-4C66-9E9F-ACEC29248F08}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{ACBC5DD3-195E-4C66-9E9F-ACEC29248F08}.Debug|x64.Build.0 = Debug|Any CPU
+		{ACBC5DD3-195E-4C66-9E9F-ACEC29248F08}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ACBC5DD3-195E-4C66-9E9F-ACEC29248F08}.Debug|x86.Build.0 = Debug|Any CPU
+		{ACBC5DD3-195E-4C66-9E9F-ACEC29248F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACBC5DD3-195E-4C66-9E9F-ACEC29248F08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACBC5DD3-195E-4C66-9E9F-ACEC29248F08}.Release|x64.ActiveCfg = Release|Any CPU
+		{ACBC5DD3-195E-4C66-9E9F-ACEC29248F08}.Release|x64.Build.0 = Release|Any CPU
+		{ACBC5DD3-195E-4C66-9E9F-ACEC29248F08}.Release|x86.ActiveCfg = Release|Any CPU
+		{ACBC5DD3-195E-4C66-9E9F-ACEC29248F08}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

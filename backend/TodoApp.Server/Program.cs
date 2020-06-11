@@ -1,5 +1,7 @@
+using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using TodoApp.Debugging;
 
 namespace TodoApp.Server
 {
@@ -7,7 +9,18 @@ namespace TodoApp.Server
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+			if (DebuggingHelper.IsRanWithDebuggingFlag(args)) {
+				Console.WriteLine("Running application in debugging mode (--debug flag is provided)");
+
+				var debuggingHelper = new DebuggingHelper(
+					() => CreateHostBuilder(args).Build()
+				);
+
+				debuggingHelper.Run();
+			} else {
+				Console.WriteLine("Running application in normal mode");
+				CreateHostBuilder(args).Build().Run();
+			}
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

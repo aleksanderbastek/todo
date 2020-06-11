@@ -1,4 +1,4 @@
 FROM mcr.microsoft.com/dotnet/core/sdk
 EXPOSE 5000
 WORKDIR /src
-ENTRYPOINT ["dotnet", "watch", "--project", "TodoApp.Server", "run", "--urls", "http://0.0.0.0:5000"]
+ENTRYPOINT ["dotnet", "watch", "--project", "TodoApp.Server", "run", "--urls", "http://0.0.0.0:5000", "--debug"]
