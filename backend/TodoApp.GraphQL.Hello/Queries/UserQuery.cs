@@ -1,18 +1,24 @@
 using System;
+using TodoApp.Cqrs.Types.Abstract;
 using TodoApp.GraphQL.Hello.Queries.Models;
 using TodoApp.GraphQL.Types;
 
 namespace TodoApp.GraphQL.Hello.Queries
 {
-    public class UserQuery: Query
+	public class UserQuery : Query
 	{
-        /// <summary>
-        /// Returns fake user data.
-        /// This is example of complex query type.
-        /// </summary>
-        /// <param name="id">Fake ID string of the user. Use whatever you want. Ex: "blablabla".</param>
-        /// <returns>User data.</returns>
-        public User GetUserDataById(string id) {
+		public UserQuery(IQueryProcessor processor) : base(processor)
+		{
+		}
+
+		/// <summary>
+		/// Returns fake user data.
+		/// This is example of complex query type.
+		/// </summary>
+		/// <param name="id">Fake ID string of the user. Use whatever you want. Ex: "blablabla".</param>
+		/// <returns>User data.</returns>
+		public User GetUserDataById(string id)
+		{
 			var user = new User()
 			{
 				Id = id,
@@ -31,5 +37,5 @@ namespace TodoApp.GraphQL.Hello.Queries
 
 			return user;
 		}
-    }
+	}
 }

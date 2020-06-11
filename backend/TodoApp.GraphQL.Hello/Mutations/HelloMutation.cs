@@ -1,11 +1,17 @@
 using HotChocolate;
+using TodoApp.Cqrs.Types.Abstract;
 using TodoApp.GraphQL.Hello.Mutations.Models;
+using TodoApp.GraphQL.Hello.Providers;
 using TodoApp.GraphQL.Types;
 
 namespace TodoApp.GraphQL.Hello.Mutations
 {
-    public class HelloMutation: Mutation
-    {
+	public class HelloMutation : Mutation
+	{
+		protected HelloMutation(ICommandProcessor processor) : base(processor)
+		{
+		}
+
 		/// <summary>
 		/// Changes "Hello" word used in sayHelloFor query.
 		/// </summary>
@@ -21,5 +27,5 @@ namespace TodoApp.GraphQL.Hello.Mutations
 				Success = true
 			};
 		}
-    }
+	}
 }

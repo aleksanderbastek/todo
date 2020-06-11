@@ -1,4 +1,4 @@
-namespace TodoApp.GraphQL.Hello
+namespace TodoApp.GraphQL.Hello.Providers
 {
 	public class TestingHelloWordProvider : ITestingHelloWordProvider
 	{
