@@ -46,7 +46,8 @@ namespace TodoApp.Server
                                 "<p style=\"font-size: 1.5rem\"> " + 
                                 "GraphQL endpoint: <a href=\"/graphql\">/graphql</a>.<br />" +
                                 "GraphQL Playground: <a href=\"/graphql/playground\">/graphql/playground</a>.<br />" +
-                                "GraphQL Voyager: <a href=\"/graphql/voyager\">/graphql/voyager</a>.</p>" +
+                                "GraphQL Voyager: <a href=\"/graphql/voyager\">/graphql/voyager</a>.<br />" +
+                                "PgAdmin 4: <a href=\"http://localhost:5050/\">http://localhost:5050</a>.</p>" +
                                 "</body></html>"
                             );
                         });
