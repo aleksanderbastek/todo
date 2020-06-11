@@ -15,3 +15,36 @@ services:
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
       - ./:/src
+    depends_on:
+      - pg-db
+    networks:
+      - backend
+
+  pg-db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: SimplePassword1
+    networks:
+      - backend
+    logging:
+      driver: none
+
+  pg-admin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@backend.com
+      PGADMIN_DEFAULT_PASSWORD: SimplePassword1
+    ports:
+      - "5050:80"
+    networks:
+      - backend
+    depends_on:
+      - pg-db
+    logging:
+      driver: none
+
+networks:
+  backend:
+    
