@@ -1,8 +1,7 @@
-using System;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using TodoApp.Cqrs.Hello.Queries;
 using TodoApp.Cqrs.Types;
+using TodoApp.Domain.Handlers;
 
 namespace TodoApp.Cqrs
 {
@@ -10,7 +9,10 @@ namespace TodoApp.Cqrs
 	{
 		public static IServiceCollection AddCqrsSetup(this IServiceCollection services)
 		{
-			services.AddMediatR(typeof(GetHelloStringQuery).Assembly);
+			services.AddMediatR(
+				TodoDomainHandlers.GetAssembly()
+			);
+				
 			services.AddCqrsTypesSetup();
 
 			return services;
