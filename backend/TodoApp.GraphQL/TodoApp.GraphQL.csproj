@@ -13,7 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TodoApp.GraphQL.Types\TodoApp.GraphQL.Types.csproj" />
-    <ProjectReference Include="..\TodoApp.GraphQL.Hello\TodoApp.GraphQL.Hello.csproj" />
+    <ProjectReference Include="..\TodoApp.Api.Boards\TodoApp.Api.Boards.csproj" />
+    <ProjectReference Include="..\TodoApp.Api.Todos\TodoApp.Api.Todos.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
