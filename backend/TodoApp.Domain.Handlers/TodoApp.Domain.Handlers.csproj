@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\TodoApp.Cqrs.Types\TodoApp.Cqrs.Types.csproj" />
+    <ProjectReference Include="..\TodoApp.Domain.Repositories\TodoApp.Domain.Repositories.csproj" />
+    <ProjectReference Include="..\TodoApp.Domain.Models\TodoApp.Domain.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="8.0.1" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>
