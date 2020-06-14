@@ -28,16 +28,16 @@ namespace TodoApp.Server
 			services.AddDbContext<TodoDbContext>(optionsBuilder =>
 				optionsBuilder.UseNpgsql(
 					"Host=pg-db;Database=todo_app;Username=admin;Password=SimplePassword1"
-				)
+				), ServiceLifetime.Transient
 			);
 
 			services
 				// Board repositories
-				.AddScoped<IWritableBoardRepository, WritableBoardRepository>()
-				.AddScoped<IReadableBoardRepository, ReadableBoardRepository>()
+				.AddTransient<IWritableBoardRepository, WritableBoardRepository>()
+				.AddTransient<IReadableBoardRepository, ReadableBoardRepository>()
 				// Todo repositories
-				.AddScoped<IWritableTodoRepository, WritableTodoRepository>()
-				.AddScoped<IReadableTodoRepository, ReadableTodoRepository>();
+				.AddTransient<IWritableTodoRepository, WritableTodoRepository>()
+				.AddTransient<IReadableTodoRepository, ReadableTodoRepository>();
 
 			services.AddCors(o => o.AddPolicy("AllowAll", builder =>
 			{
