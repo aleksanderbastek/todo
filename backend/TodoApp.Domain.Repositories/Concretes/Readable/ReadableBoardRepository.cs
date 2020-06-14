@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,11 @@ namespace TodoApp.Domain.Repositories.Concretes.Readable
 			};
 
 			return context.Boards.ContainsAsync(board);
+		}
+
+		public Task<List<Board>> GetAllBoardsAsync()
+		{
+			return context.Boards.ToListAsync();
 		}
 
 		public async Task<Board> GetBoardInfoByIdAsync(string boardId)

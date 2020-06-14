@@ -11,6 +11,11 @@ namespace TodoApp.Api.Boards.Queries
 		{
 		}
 
+		public async Task<AllBoardsResult> AllBoards() {
+			var request = new AllBoardsQuery();
+			return await processor.Query(request);
+		}
+
 		public async Task<BoardInfoResult> BoardInfo(string boardId) {
 			var request = new BoardInfoQuery
 			{

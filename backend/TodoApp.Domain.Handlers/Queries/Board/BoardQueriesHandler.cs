@@ -9,7 +9,8 @@ namespace TodoApp.Domain.Handlers.Queries.Board
 	public class BoardQueriesHandler :
 		IQueryHandler<BoardInfoQuery, BoardInfoResult>,
 		IQueryHandler<NumberOfTodosQuery, NumberOfTodosResult>,
-		IQueryHandler<NumberOfPagesOfTodosQuery, NumberOfPagesOfTodosResult>
+		IQueryHandler<NumberOfPagesOfTodosQuery, NumberOfPagesOfTodosResult>,
+		IQueryHandler<AllBoardsQuery, AllBoardsResult>
 	{
 		private IReadableBoardRepository boardRepository;
 		private IReadableTodoRepository todoRepository;
@@ -68,6 +69,16 @@ namespace TodoApp.Domain.Handlers.Queries.Board
 				BoardId = request.BoardId,
 				NumberOfTodosPerPage = request.NumberOfTodosPerPage,
 				NumberOfPages = result
+			};
+		}
+
+		public async Task<AllBoardsResult> Handle(AllBoardsQuery request, CancellationToken cancellationToken)
+		{
+			var result = await boardRepository.GetAllBoardsAsync();
+
+			return new AllBoardsResult
+			{
+				Result = result
 			};
 		}
 	}
