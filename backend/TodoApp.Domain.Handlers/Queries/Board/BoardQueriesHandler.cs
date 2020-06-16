@@ -33,7 +33,7 @@ namespace TodoApp.Domain.Handlers.Queries.Board
 				Id = result.Id,
 				Title = result.Title,
 				Description = result.Description,
-				CreationDate = result.CreationDate ?? DateTime.Now
+				CreationDate = result.CreationDate
 			};
 		}
 
@@ -67,11 +67,17 @@ namespace TodoApp.Domain.Handlers.Queries.Board
 
 		public async Task<AllBoardsResult> Handle(AllBoardsQuery request, CancellationToken cancellationToken)
 		{
-			var result = await boardRepository.GetAllBoardsAsync();
+			if (request.Take < 1) {
+				throw new ArgumentException("Cannot take less than one board");
+			}
+
+			var result = await boardRepository.GetAllBoardsAsync(request.Take, request.Skip);
 
 			return new AllBoardsResult
 			{
-				Result = result
+				Result = result,
+				Take = request.Take,
+				Skip = request.Skip
 			};
 		}
 	}
