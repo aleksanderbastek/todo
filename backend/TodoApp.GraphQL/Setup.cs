@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using TodoApp.GraphQL.Types;
 using HotChocolate.AspNetCore.Voyager;
 using TodoApp.Api.Query;
+using TodoApp.Api.Mutation;
 
 namespace TodoApp.Graphql
 {
@@ -16,8 +17,9 @@ namespace TodoApp.Graphql
         {
 			var schemaBuilder = SchemaBuilder.New()
 				.AddQueryType(d => d.Name("Query"))
-				//.AddMutationType(d => d.Name("Mutation"))
-				.AddRoot<TodoQueryRoot>(services);
+				.AddMutationType(d => d.Name("Mutation"))
+				.AddRoot<TodoQueryRoot>(services)
+				.AddRoot<TodoMutationRoot>(services);
 
 			services.AddGraphQL(sp => schemaBuilder
                 .AddServices(sp)
