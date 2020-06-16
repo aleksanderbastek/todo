@@ -22,22 +22,19 @@ namespace TodoApp.Api.Query
 			this.processor = processor;
 		}
 
-		public BoardType(BoardInfoResult info, IQueryProcessor processor) :
-			this(
-				info.Id,
-				info.Title,
-				info.Description,
-				info.CreationDate,
-				processor
-			)
-		{ }
-
 		public BoardType(Board board, IQueryProcessor processor) :
 			this(
 				board.Id,
 				board.Title,
 				board.Description,
 				board.CreationDate,
+				processor
+			)
+		{ }
+
+		public BoardType(BoardInfoResult info, IQueryProcessor processor) :
+			this(
+				info.Result,
 				processor
 			)
 		{ }

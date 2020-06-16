@@ -26,14 +26,18 @@ namespace TodoApp.Domain.Handlers.Queries.Board
 				throw new ArgumentException("BoardId cannot be null or white space");
 			}
 
+			if (!await boardRepository.CheckBoardExistsAsync(request.BoardId)) {
+				return new BoardInfoResult
+				{
+					Result = null
+				};
+			}
+
 			var result = await boardRepository.GetBoardInfoByIdAsync(request.BoardId);
 
 			return new BoardInfoResult
 			{
-				Id = result.Id,
-				Title = result.Title,
-				Description = result.Description,
-				CreationDate = result.CreationDate
+				Result = result
 			};
 		}
 
