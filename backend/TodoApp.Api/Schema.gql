@@ -1,3 +1,9 @@
+# This is not vaild schema.
+# It is just example, prototype
+# that is not used anywhere in project.
+# I am just trying to make my code first
+# schema look like this one defined below.
+
 scalar DateTime
 
 type Query {
@@ -8,9 +14,11 @@ type Query {
 
 type Mutation {
 	createBoard(title: String!, description: String): MutationResult<Board>
+	deleteBoard(id: String!): MutationResult
 	board(id: String!): BoardMutation
 
 	addTodo(boardId: String!, title: String!, deadline: DateTime): MutationResult<Todo>
+	deleteTodo(id: String!): MutationResult
 	todo(id: String!): TodoMutation
 }
 
@@ -41,13 +49,11 @@ type TodoQuery {
 }
 
 type BoardMutation {
-	deleteBoard: MutationResult
 	updateBoardTitle(title: String!): MutationResult
 	updateBoardDescription(description: String): MutationResult
 }
 
 type TodoMutation {
-	delete: MutationResult
 	updateTitle(title: String!): MutationResult
 	changeState(state: Boolean!): MutationResult
 	changeDeadline(deadline: DateTime): MutationResult
