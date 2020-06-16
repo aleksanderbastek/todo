@@ -1,14 +1,14 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TodoApp.Cqrs.Types.Abstract;
 using TodoApp.Domain.Handlers.Queries.Board;
+using TodoApp.Domain.Handlers.Queries.Todo;
 using TodoApp.GraphQL.Types;
 
 namespace TodoApp.Api.Query
 {
-    public class TodoQueryRoot: QueryRoot
+	public class TodoQueryRoot: QueryRoot
     {
 		private readonly IQueryProcessor processor;
 
@@ -17,13 +17,17 @@ namespace TodoApp.Api.Query
 			this.processor = processor;
 		}
 
-		public async Task<BoardType> Board(string id) {
+		public async Task<BoardType?> Board(string id) {
 			var request = new BoardInfoQuery
 			{
 				BoardId = id
 			};
 
 			var board = await processor.Query(request);
+
+			if (board.Result == null) {
+				return null;
+			}
 
 			return new BoardType(board, processor);
 		}
@@ -46,6 +50,21 @@ namespace TodoApp.Api.Query
 			var result = from board in queryResult.Result select new BoardType(board, processor);
 
 			return result.ToList();
+		}
+
+		public async Task<TodoType?> Todo(string id) {
+			var request = new TodoInfoQuery
+			{
+				TodoId = id
+			};
+
+			var result = await processor.Query(request);
+
+			if (result.Result == null) {
+				return null;
+			}
+
+			return new TodoType(result.Result, processor);
 		}
     }
 }
