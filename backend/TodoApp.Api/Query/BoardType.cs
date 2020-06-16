@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TodoApp.Cqrs.Types.Abstract;
 using TodoApp.Domain.Handlers.Queries.Board;
 using TodoApp.Domain.Handlers.Queries.Todo;
+using TodoApp.Domain.Models;
 
 namespace TodoApp.Api.Query
 {
@@ -27,6 +28,16 @@ namespace TodoApp.Api.Query
 				info.Title,
 				info.Description,
 				info.CreationDate,
+				processor
+			)
+		{ }
+
+		public BoardType(Board board, IQueryProcessor processor) :
+			this(
+				board.Id,
+				board.Title,
+				board.Description,
+				board.CreationDate,
 				processor
 			)
 		{ }
