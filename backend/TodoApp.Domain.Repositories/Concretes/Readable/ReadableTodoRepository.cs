@@ -30,6 +30,15 @@ namespace TodoApp.Domain.Repositories.Concretes.Readable
 			return context.Todos.ContainsAsync(todo);
 		}
 
+		public async Task<Todo> GetTodoAsync(string todoId)
+		{
+			if (!await CheckTodoExistsAsync(todoId)) {
+				throw new ArgumentException("Todo with specified Id does not exist");
+			}
+
+			return await context.Todos.SingleAsync(t => t.Id == todoId);
+		}
+
 		public async Task<List<Todo>> GetAllTodosOfBoardAsync(string boardId)
 		{
 			if (!await boardRepository.CheckBoardExistsAsync(boardId)) {
