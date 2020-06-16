@@ -9,7 +9,8 @@ namespace TodoApp.Domain.Handlers.Queries.Todo
 	public class TodoQueriesHandler :
 		IQueryHandler<TodosOfBoardQuery, TodosOfBoardResult>,
 		IQueryHandler<DoneTodosOfBoardQuery, DoneTodosOfBoardResult>,
-		IQueryHandler<UndoneTodosOfBoardQuery, UndoneTodosOfBoardResult>
+		IQueryHandler<UndoneTodosOfBoardQuery, UndoneTodosOfBoardResult>,
+		IQueryHandler<TodoInfoQuery, TodoInfoResult>
 	{
 		private IReadableTodoRepository todoRepository;
 
@@ -82,6 +83,27 @@ namespace TodoApp.Domain.Handlers.Queries.Todo
 				Take = request.Take,
 				Skip = request.Skip,
 				Result = result
+			};
+		}
+
+		public async Task<TodoInfoResult> Handle(TodoInfoQuery request, CancellationToken cancellationToken)
+		{
+			if (string.IsNullOrWhiteSpace(request.TodoId)) {
+				throw new ArgumentException("TodoId cannot be null or white space");
+			}
+
+			if (!await todoRepository.CheckTodoExistsAsync(request.TodoId)) {
+				return new TodoInfoResult
+				{
+					Result = null
+				};
+			}
+
+			var todo = await todoRepository.GetTodoAsync(request.TodoId);
+
+			return new TodoInfoResult
+			{
+				Result = todo
 			};
 		}
 	}
