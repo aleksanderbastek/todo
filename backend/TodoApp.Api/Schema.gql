@@ -1,0 +1,60 @@
+scalar DateTime
+
+type Query {
+	board(id: String!): BoardQuery
+	boards(take: Number!, skip: Number): [BoardQuery]
+	todo(id: String!): TodoQuery
+}
+
+type Mutation {
+	createBoard(title: String!, description: String): MutationResult<Board>
+	board(id: String!): BoardMutation
+
+	addTodo(boardId: String!, title: String!, deadline: DateTime): MutationResult<Todo>
+	todo(id: String!): TodoMutation
+}
+
+type BoardQuery {
+	id: String!
+	title: String!
+	description: String
+	creationDate: DateTime
+
+	todos(take: Number!, skip: Number): [Todo]
+	doneTodos(take: Number!, skip: Number): [Todo]
+	undoneTodos(take: Number!, skip: Number): [Todo]
+
+	numberOfTodos: Number
+	numberOfDoneTodos: Number
+	numberOfUndoneTodos: Number
+}
+
+type TodoQuery {
+	id: String!
+	board: BoardQuery!
+	title: String!
+	creationDate: DateTime
+	doneDate: DateTime
+	deadline: DateTime
+	isDone: Boolean!
+	isExpired: Boolean!
+}
+
+type BoardMutation {
+	deleteBoard: MutationResult
+	updateBoardTitle(title: String!): MutationResult
+	updateBoardDescription(description: String): MutationResult
+}
+
+type TodoMutation {
+	delete: MutationResult
+	updateTitle(title: String!): MutationResult
+	changeState(state: Boolean!): MutationResult
+	changeDeadline(deadline: DateTime): MutationResult
+}
+
+type MutationResult {
+	isSuccessfull: Boolean!
+	result: USE_GENERICS_HERE
+	error: String
+}
