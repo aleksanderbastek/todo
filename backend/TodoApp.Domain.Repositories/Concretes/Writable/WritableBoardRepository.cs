@@ -50,7 +50,9 @@ namespace TodoApp.Domain.Repositories.Concretes.Writable
 				throw new ArgumentException("Board with specified Id does not exist");
 			}
 
-			board.CreationDate = null;
+			if (board.CreationDate != null) {
+				throw new ArgumentException("Cannot change board CreationDate");
+			}
 
 			this.context.Boards.Update(board);
 			await this.context.SaveChangesAsync();

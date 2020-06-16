@@ -38,7 +38,7 @@ namespace TodoApp.Domain.Handlers.Commands.Board
 
 			return new CreateNewBoardResult {
 				BoardId = result.Id,
-				CreationDate = result.CreationDate ?? DateTime.Now
+				CreationDate = result.CreationDate
 			};
 		}
 
