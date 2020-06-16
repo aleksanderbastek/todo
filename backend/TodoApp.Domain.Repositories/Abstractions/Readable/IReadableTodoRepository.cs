@@ -7,13 +7,13 @@ namespace TodoApp.Domain.Repositories.Abstractions.Readable
 {
     public interface IReadableTodoRepository
     {
-		Task<bool> CheckTodoExistsAsync(Todo todo);
 		Task<bool> CheckTodoExistsAsync(string todoId);
-		Task<List<Todo>> GetAllTodosOfBoardAsync(Board board);
 		Task<List<Todo>> GetAllTodosOfBoardAsync(string boardId);
-		Task<List<Todo>> GetSubsetOfTodosOfBoardAsync(Board board, int numberOfTodos, int numberOfTodosToSkip);
 		Task<List<Todo>> GetSubsetOfTodosOfBoardAsync(string boardId, int numberOfTodos, int numberOfTodosToSkip);
-		Task<int> GetNumberOfTodosOfBoardAsync(Board board);
+		Task<List<Todo>> GetDoneTodosOfBoardAsync(string boardId, int numberOfTodos, int numberOfTodosToSkip);
+		Task<List<Todo>> GetUndoneTodosOfBoardAsync(string boardId, int numberOfTodos, int numberOfTodosToSkip);
 		Task<int> GetNumberOfTodosOfBoardAsync(string boardId);
+		Task<int> GetNumberOfDoneTodosOfBoardAsync(string boardId);
+		Task<int> GetNumberOfUndoneTodosOfBoardAsync(string boardId);
 	}
 }
