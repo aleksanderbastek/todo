@@ -26,7 +26,7 @@ namespace TodoApp.Api.Query
 			DoneDate = doneDate;
 			Deadline = deadline;
 			IsDone = DoneDate != null;
-			IsExpired = IsDone ? true : Deadline < DateTime.Now;
+			IsExpired = Deadline != null ? Deadline < DateTime.Now : false;
 			
 			this.boardId = boardId;
 			this.processor = processor;
