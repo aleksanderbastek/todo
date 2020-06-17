@@ -27,7 +27,7 @@ namespace TodoApp.Api.Query
 				board.Id,
 				board.Title,
 				board.Description,
-				board.CreationDate,
+				board.CreationDate ?? new DateTime(0),
 				processor
 			)
 		{ }

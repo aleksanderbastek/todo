@@ -54,8 +54,44 @@ namespace TodoApp.Domain.Repositories.Concretes.Writable
 				throw new ArgumentException("Cannot change board CreationDate");
 			}
 
-			this.context.Boards.Update(board);
-			await this.context.SaveChangesAsync();
+			context.Update(board);
+			await context.SaveChangesAsync();
+
+			context.Detach(board);
+
+			return board;
+		}
+
+		public async Task<Board> UpdateBoardTitleAsync(Board board)
+		{
+			if (!await boardRepository.CheckBoardExistsAsync(board.Id)) {
+				throw new ArgumentException("Board with specified Id does not exist");
+			}
+
+			if (board.CreationDate != null) {
+				throw new ArgumentException("Cannot change board CreationDate");
+			}
+
+			context.Entry(board).Property(b => b.Title).IsModified = true;
+			await context.SaveChangesAsync();
+
+			context.Detach(board);
+
+			return board;
+		}
+
+		public async Task<Board> UpdateBoardDescriptionAsync(Board board)
+		{
+			if (!await boardRepository.CheckBoardExistsAsync(board.Id)) {
+				throw new ArgumentException("Board with specified Id does not exist");
+			}
+
+			if (board.CreationDate != null) {
+				throw new ArgumentException("Cannot change board CreationDate");
+			}
+
+			context.Entry(board).Property(b => b.Description).IsModified = true;
+			await context.SaveChangesAsync();
 
 			context.Detach(board);
 

@@ -39,7 +39,7 @@ namespace TodoApp.Domain.Handlers.Commands.Board
 
 			return new CreateNewBoardResult {
 				BoardId = result.Id,
-				CreationDate = result.CreationDate
+				CreationDate = result.CreationDate ?? new DateTime(0)
 			};
 		}
 
@@ -78,7 +78,7 @@ namespace TodoApp.Domain.Handlers.Commands.Board
 				Title = request.Title
 			};
 
-			var result = await boardRepository.UpdateBoardAsync(board);
+			var result = await boardRepository.UpdateBoardTitleAsync(board);
 
 			return new UpdateBoardTitleResult {
 				BoardId = result.Id
@@ -101,7 +101,7 @@ namespace TodoApp.Domain.Handlers.Commands.Board
 				Description = request.Description
 			};
 
-			var result = await boardRepository.UpdateBoardAsync(board);
+			var result = await boardRepository.UpdateBoardDescriptionAsync(board);
 
 			return new UpdateBoardDescriptionResult {
 				BoardId = result.Id

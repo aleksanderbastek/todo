@@ -9,5 +9,7 @@ namespace TodoApp.Domain.Repositories.Abstractions.Writable
 		Task<Board> AddBoardAsync(Board board);
 		Task<Board> DeleteBoardAsync(Board board);
 		Task<Board> UpdateBoardAsync(Board board);
+		Task<Board> UpdateBoardTitleAsync(Board board);
+		Task<Board> UpdateBoardDescriptionAsync(Board board);
 	}
 }

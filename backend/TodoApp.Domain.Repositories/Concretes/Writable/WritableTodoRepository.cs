@@ -63,5 +63,69 @@ namespace TodoApp.Domain.Repositories.Concretes.Writable
 
 			return todo;
 		}
+
+		public async Task<Todo> UpdateTodoDeadlineAsync(Todo todo)
+		{
+			if (!await todoRepository.CheckTodoExistsAsync(todo.Id)) {
+				throw new ArgumentException("Todo with specified Id does not exist");
+			}
+
+			if (todo.Deadline != null) {
+				var actualTodo = await todoRepository.GetTodoAsync(todo.Id);
+
+				if (actualTodo.CreationDate > todo.Deadline) {
+					throw new ArgumentException("Todo deadline cannot be earlier than todo creation date");
+				}
+			}
+
+			context.Entry(todo).Property(t => t.Deadline).IsModified = true;
+			await context.SaveChangesAsync();
+
+			context.Detach(todo);
+
+			return todo;
+		}
+
+		public async Task<Todo> UpdateTodoDoneDateAsync(Todo todo)
+		{
+			if (!await todoRepository.CheckTodoExistsAsync(todo.Id)) {
+				throw new ArgumentException("Todo with specified Id does not exist");
+			}
+
+			if (todo.DoneDate != null)
+			{
+				var actualTodo = await todoRepository.GetTodoAsync(todo.Id);
+
+				if (actualTodo.DoneDate <= todo.CreationDate)
+				{
+					throw new ArgumentException("Todo done date cannot be earlier than todo creation date");
+				}
+			}
+
+			context.Entry(todo).Property(t => t.DoneDate).IsModified = true;
+			await context.SaveChangesAsync();
+
+			context.Detach(todo);
+
+			return todo;
+		}
+
+		public async Task<Todo> UpdateTodoTitleAsync(Todo todo)
+		{
+			if (!await todoRepository.CheckTodoExistsAsync(todo.Id)) {
+				throw new ArgumentException("Todo with specified Id does not exist");
+			}
+
+			if (string.IsNullOrWhiteSpace(todo.Title)) {
+				throw new ArgumentException("Cannot change todo title to null or white space");
+			}
+
+			context.Entry(todo).Property(t => t.Title).IsModified = true;
+			await context.SaveChangesAsync();
+
+			context.Detach(todo);
+
+			return todo;
+		}
 	}
 }

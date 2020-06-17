@@ -27,7 +27,7 @@ namespace TodoApp.Domain.Handlers.Commands.Todo
 				throw new ArgumentException("Cannot add new todo when BoardId is null or empty");
 			}
 
-			if (string.IsNullOrEmpty(request.Title)) {
+			if (string.IsNullOrWhiteSpace(request.Title)) {
 				throw new ArgumentException("Cannot add new todo when Title is null or empty");
 			}
 
@@ -70,10 +70,6 @@ namespace TodoApp.Domain.Handlers.Commands.Todo
 		public async Task<ChangeTodoTitleResult> Handle(ChangeTodoTitleCommand request, CancellationToken cancellationToken)
 		{
 			if (string.IsNullOrWhiteSpace(request.TodoId)) {
-				throw new ArgumentException("Cannot change todo Title when TodoId is null or empty");
-			}
-
-			if (string.IsNullOrWhiteSpace(request.TodoId)) {
 				throw new ArgumentException("Cannot change todo Title to null or empty space");
 			}
 
@@ -83,7 +79,7 @@ namespace TodoApp.Domain.Handlers.Commands.Todo
 				Title = request.Title
 			};
 
-			var result = await todoRepository.UpdateTodoAsync(todo);
+			var result = await todoRepository.UpdateTodoTitleAsync(todo);
 
 			return new ChangeTodoTitleResult
 			{
@@ -104,7 +100,7 @@ namespace TodoApp.Domain.Handlers.Commands.Todo
 				Deadline = request.NewDeadline
 			};
 
-			var result = await todoRepository.UpdateTodoAsync(todo);
+			var result = await todoRepository.UpdateTodoDeadlineAsync(todo);
 
 			return new ChangeTodoDeadlineResult
 			{
@@ -119,17 +115,13 @@ namespace TodoApp.Domain.Handlers.Commands.Todo
 				throw new ArgumentException("Cannot mark todo as done when TodoId is null or white space");
 			}
 
-			if (request.DoneDate == null) {
-				request.DoneDate = DateTime.Now;
-			}
-
 			var todo = new Models.Todo
 			{
 				Id = request.TodoId,
-				DoneDate = request.DoneDate
+				DoneDate = request.DoneDate ?? DateTime.Now
 			};
 
-			var result = await todoRepository.UpdateTodoAsync(todo);
+			var result = await todoRepository.UpdateTodoDoneDateAsync(todo);
 
 			return new MarkTodoAsDoneResult
 			{
@@ -150,7 +142,7 @@ namespace TodoApp.Domain.Handlers.Commands.Todo
 				DoneDate = null
 			};
 
-			var result = await todoRepository.UpdateTodoAsync(todo);
+			var result = await todoRepository.UpdateTodoDoneDateAsync(todo);
 
 			return new MarkTodoAsUndoneResult
 			{

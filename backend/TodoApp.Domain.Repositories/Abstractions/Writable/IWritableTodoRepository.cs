@@ -9,5 +9,8 @@ namespace TodoApp.Domain.Repositories.Abstractions.Writable
 		Task<Todo> AddTodoAsync(Todo todo);
 		Task<Todo> RemoveTodoAsync(Todo todo);
 		Task<Todo> UpdateTodoAsync(Todo todo);
+		Task<Todo> UpdateTodoTitleAsync(Todo todo);
+		Task<Todo> UpdateTodoDeadlineAsync(Todo todo);
+		Task<Todo> UpdateTodoDoneDateAsync(Todo todo);
 	}
 }
