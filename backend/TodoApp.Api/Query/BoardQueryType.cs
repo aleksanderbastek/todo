@@ -9,11 +9,11 @@ using TodoApp.Domain.Models;
 
 namespace TodoApp.Api.Query
 {
-	public class BoardType
+	public class BoardQueryType
 	{
 		private readonly IQueryProcessor processor;
 
-		public BoardType(string id, string title, string? description, DateTime creationDate, IQueryProcessor processor)
+		public BoardQueryType(string id, string title, string? description, DateTime creationDate, IQueryProcessor processor)
 		{
 			Id = id;
 			Title = title;
@@ -22,7 +22,7 @@ namespace TodoApp.Api.Query
 			this.processor = processor;
 		}
 
-		public BoardType(Board board, IQueryProcessor processor) :
+		public BoardQueryType(Board board, IQueryProcessor processor) :
 			this(
 				board.Id,
 				board.Title,
@@ -32,7 +32,7 @@ namespace TodoApp.Api.Query
 			)
 		{ }
 
-		public BoardType(BoardInfoResult info, IQueryProcessor processor) :
+		public BoardQueryType(BoardInfoResult info, IQueryProcessor processor) :
 			this(
 				info.Result,
 				processor
@@ -44,7 +44,7 @@ namespace TodoApp.Api.Query
 		public string? Description { get; set; }
 		public DateTime CreationDate { get; set; }
 
-		public async Task<List<TodoType>> Todos(int take, int? skip)
+		public async Task<List<TodoQueryType>> Todos(int take, int? skip)
 		{
 			var request = new TodosOfBoardQuery
 			{
@@ -55,12 +55,12 @@ namespace TodoApp.Api.Query
 
 			var queryResult = await processor.Query(request);
 
-			var result = from todo in queryResult.Result select new TodoType(todo, processor);
+			var result = from todo in queryResult.Result select new TodoQueryType(todo, processor);
 
 			return result.ToList();
 		}
 
-		public async Task<List<TodoType>> DoneTodos(int take, int? skip) {
+		public async Task<List<TodoQueryType>> DoneTodos(int take, int? skip) {
 			var request = new DoneTodosOfBoardQuery
 			{
 				BoardId = Id,
@@ -70,12 +70,12 @@ namespace TodoApp.Api.Query
 
 			var queryResult = await processor.Query(request);
 
-			var result = from todo in queryResult.Result select new TodoType(todo, processor);
+			var result = from todo in queryResult.Result select new TodoQueryType(todo, processor);
 
 			return result.ToList();
 		}
 
-		public async Task<List<TodoType>> UndoneTodos(int take, int? skip) {
+		public async Task<List<TodoQueryType>> UndoneTodos(int take, int? skip) {
 			var request = new UndoneTodosOfBoardQuery
 			{
 				BoardId = Id,
@@ -85,7 +85,7 @@ namespace TodoApp.Api.Query
 
 			var queryResult = await processor.Query(request);
 
-			var result = from todo in queryResult.Result select new TodoType(todo, processor);
+			var result = from todo in queryResult.Result select new TodoQueryType(todo, processor);
 
 			return result.ToList();
 		}

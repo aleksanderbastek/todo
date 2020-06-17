@@ -6,12 +6,12 @@ using TodoApp.Domain.Models;
 
 namespace TodoApp.Api.Query
 {
-	public class TodoType
+	public class TodoQueryType
 	{
 		private readonly string boardId;
 		private readonly IQueryProcessor processor;
 
-		public TodoType(
+		public TodoQueryType(
 			string id,
 			string boardId,
 			string title,
@@ -32,7 +32,7 @@ namespace TodoApp.Api.Query
 			this.processor = processor;
 		}
 
-		public TodoType(Todo todo, IQueryProcessor processor) :
+		public TodoQueryType(Todo todo, IQueryProcessor processor) :
 			this(
 				todo.Id,
 				todo.BoardId,
@@ -52,7 +52,7 @@ namespace TodoApp.Api.Query
 		public bool IsDone { get; }
 		public bool IsExpired { get; }
 
-		public async Task<BoardType> Board() {
+		public async Task<BoardQueryType> Board() {
 			var request = new BoardInfoQuery
 			{
 				BoardId = boardId
@@ -60,7 +60,7 @@ namespace TodoApp.Api.Query
 
 			var queryResult = await processor.Query(request);
 
-			return new BoardType(queryResult, processor);
+			return new BoardQueryType(queryResult, processor);
 		}
 	}
 }

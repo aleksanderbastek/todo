@@ -17,7 +17,7 @@ namespace TodoApp.Api.Query
 			this.processor = processor;
 		}
 
-		public async Task<BoardType?> Board(string id) {
+		public async Task<BoardQueryType?> Board(string id) {
 			var request = new BoardInfoQuery
 			{
 				BoardId = id
@@ -29,7 +29,7 @@ namespace TodoApp.Api.Query
 				return null;
 			}
 
-			return new BoardType(board, processor);
+			return new BoardQueryType(board, processor);
 		}
 
 		/// <summary>
@@ -38,7 +38,7 @@ namespace TodoApp.Api.Query
 		/// You can build development helper showing you names and boards IDs
 		/// using this query.
 		/// </summary>
-		public async Task<List<BoardType>> Boards(int take, int? skip) {
+		public async Task<List<BoardQueryType>> Boards(int take, int? skip) {
 			var request = new AllBoardsQuery
 			{
 				Take = take,
@@ -47,12 +47,12 @@ namespace TodoApp.Api.Query
 
 			var queryResult = await processor.Query(request);
 
-			var result = from board in queryResult.Result select new BoardType(board, processor);
+			var result = from board in queryResult.Result select new BoardQueryType(board, processor);
 
 			return result.ToList();
 		}
 
-		public async Task<TodoType?> Todo(string id) {
+		public async Task<TodoQueryType?> Todo(string id) {
 			var request = new TodoInfoQuery
 			{
 				TodoId = id
@@ -64,7 +64,7 @@ namespace TodoApp.Api.Query
 				return null;
 			}
 
-			return new TodoType(result.Result, processor);
+			return new TodoQueryType(result.Result, processor);
 		}
     }
 }
