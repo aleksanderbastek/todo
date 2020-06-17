@@ -28,9 +28,13 @@ namespace TodoApp.Domain.Repositories.Concretes.Readable
 			return context.Boards.ContainsAsync(board);
 		}
 
-		public Task<List<Board>> GetAllBoardsAsync()
+		public Task<List<Board>> GetAllBoardsAsync(int take, int skip)
 		{
-			return context.Boards.ToListAsync();
+			return context.Boards
+				.OrderBy(b => b.CreationDate)
+				.Skip(skip)
+				.Take(take)
+				.ToListAsync();
 		}
 
 		public async Task<Board> GetBoardInfoByIdAsync(string boardId)

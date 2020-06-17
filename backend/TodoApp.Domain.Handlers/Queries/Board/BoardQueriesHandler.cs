@@ -9,7 +9,6 @@ namespace TodoApp.Domain.Handlers.Queries.Board
 	public class BoardQueriesHandler :
 		IQueryHandler<BoardInfoQuery, BoardInfoResult>,
 		IQueryHandler<NumberOfTodosQuery, NumberOfTodosResult>,
-		IQueryHandler<NumberOfPagesOfTodosQuery, NumberOfPagesOfTodosResult>,
 		IQueryHandler<AllBoardsQuery, AllBoardsResult>
 	{
 		private IReadableBoardRepository boardRepository;
@@ -27,14 +26,18 @@ namespace TodoApp.Domain.Handlers.Queries.Board
 				throw new ArgumentException("BoardId cannot be null or white space");
 			}
 
+			if (!await boardRepository.CheckBoardExistsAsync(request.BoardId)) {
+				return new BoardInfoResult
+				{
+					Result = null
+				};
+			}
+
 			var result = await boardRepository.GetBoardInfoByIdAsync(request.BoardId);
 
 			return new BoardInfoResult
 			{
-				Id = result.Id,
-				Title = result.Title,
-				Description = result.Description,
-				CreationDate = result.CreationDate ?? DateTime.Now
+				Result = result
 			};
 		}
 
@@ -44,41 +47,41 @@ namespace TodoApp.Domain.Handlers.Queries.Board
 				throw new ArgumentException("BoardId cannot be null or white space");
 			}
 
-			var result = await todoRepository.GetNumberOfTodosOfBoardAsync(request.BoardId);
+			int result = 0;
 
+			switch (request.TodoFilter) {
+				case NumberOfTodosQuery.Filter.DONE:
+					result = await todoRepository.GetNumberOfDoneTodosOfBoardAsync(request.BoardId);
+					break;
+				case NumberOfTodosQuery.Filter.UNDONE:
+					result = await todoRepository.GetNumberOfUndoneTodosOfBoardAsync(request.BoardId);
+					break;
+				default:
+					result = await todoRepository.GetNumberOfTodosOfBoardAsync(request.BoardId);
+					break;
+			}
+			
 			return new NumberOfTodosResult
 			{
 				BoardId = request.BoardId,
+				TodoFilter = request.TodoFilter,
 				NumberOfTodos = result
-			};
-		}
-
-		public async Task<NumberOfPagesOfTodosResult> Handle(NumberOfPagesOfTodosQuery request, CancellationToken cancellationToken)
-		{
-			if (string.IsNullOrWhiteSpace(request.BoardId)) {
-				throw new ArgumentException("BoardId cannot be null or white space");
-			}
-
-			var numberOfTodos = await todoRepository.GetNumberOfTodosOfBoardAsync(request.BoardId);
-			var result = (numberOfTodos % request.NumberOfTodosPerPage) > 0
-				? (numberOfTodos / request.NumberOfTodosPerPage) + 1
-				: numberOfTodos / request.NumberOfTodosPerPage;
-			
-			return new NumberOfPagesOfTodosResult
-			{
-				BoardId = request.BoardId,
-				NumberOfTodosPerPage = request.NumberOfTodosPerPage,
-				NumberOfPages = result
 			};
 		}
 
 		public async Task<AllBoardsResult> Handle(AllBoardsQuery request, CancellationToken cancellationToken)
 		{
-			var result = await boardRepository.GetAllBoardsAsync();
+			if (request.Take < 1) {
+				throw new ArgumentException("Cannot take less than one board");
+			}
+
+			var result = await boardRepository.GetAllBoardsAsync(request.Take, request.Skip);
 
 			return new AllBoardsResult
 			{
-				Result = result
+				Result = result,
+				Take = request.Take,
+				Skip = request.Skip
 			};
 		}
 	}

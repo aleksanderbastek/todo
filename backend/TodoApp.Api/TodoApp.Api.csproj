@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\TodoApp.GraphQL.Types\TodoApp.GraphQL.Types.csproj" />
-    <ProjectReference Include="..\TodoApp.Domain.Handlers\TodoApp.Domain.Handlers.csproj" />
     <ProjectReference Include="..\TodoApp.Cqrs.Types\TodoApp.Cqrs.Types.csproj" />
+    <ProjectReference Include="..\TodoApp.Domain.Handlers\TodoApp.Domain.Handlers.csproj" />
+    <ProjectReference Include="..\TodoApp.GraphQL.Types\TodoApp.GraphQL.Types.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -12,6 +12,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
 </Project>

@@ -8,7 +8,8 @@ namespace TodoApp.Domain.Handlers.Commands.Board
 {
 	public class BoardCommandsHandler :
 		ICommandHandler<CreateNewBoardCommand, CreateNewBoardResult>,
-		ICommandHandler<UpdateBoardInfoCommand, UpdateBoardInfoResult>,
+		ICommandHandler<UpdateBoardTitleCommand, UpdateBoardTitleResult>,
+		ICommandHandler<UpdateBoardDescriptionCommand, UpdateBoardDescriptionResult>,
 		ICommandHandler<DeleteBoardCommand, DeleteBoardResult>
 	{
 		private IWritableBoardRepository boardRepository;
@@ -38,37 +39,7 @@ namespace TodoApp.Domain.Handlers.Commands.Board
 
 			return new CreateNewBoardResult {
 				BoardId = result.Id,
-				CreationDate = result.CreationDate ?? DateTime.Now
-			};
-		}
-
-		public async Task<UpdateBoardInfoResult> Handle(UpdateBoardInfoCommand request, CancellationToken cancellationToken)
-		{
-			if (string.IsNullOrWhiteSpace(request.BoardId)) {
-				throw new ArgumentException("Cannot update board info when BoardId is set to empty or null");
-			}
-
-			if (string.IsNullOrWhiteSpace(request.Title)) {
-				throw new ArgumentException("Cannot update board Title to null or empty string");
-			}
-
-			if (string.IsNullOrWhiteSpace(request.Description)) {
-				request.Description = null;
-			}
-
-			var board = new Models.Board
-			{
-				Id = request.BoardId,
-				Title = request.Title,
-				Description = request.Description
-			};
-
-			var result = await boardRepository.UpdateBoardAsync(board);
-
-			return new UpdateBoardInfoResult {
-				BoardId = result.Id,
-				Title = result.Title,
-				Description = result.Description
+				CreationDate = result.CreationDate
 			};
 		}
 
@@ -87,6 +58,52 @@ namespace TodoApp.Domain.Handlers.Commands.Board
 
 			return new DeleteBoardResult
 			{
+				BoardId = result.Id
+			};
+		}
+
+		public async Task<UpdateBoardTitleResult> Handle(UpdateBoardTitleCommand request, CancellationToken cancellationToken)
+		{
+			if (string.IsNullOrWhiteSpace(request.BoardId)) {
+				throw new ArgumentException("Cannot update board info when BoardId is set to empty or null");
+			}
+
+			if (string.IsNullOrWhiteSpace(request.Title)) {
+				throw new ArgumentException("Cannot update board Title to null or empty string");
+			}
+
+			var board = new Models.Board
+			{
+				Id = request.BoardId,
+				Title = request.Title
+			};
+
+			var result = await boardRepository.UpdateBoardAsync(board);
+
+			return new UpdateBoardTitleResult {
+				BoardId = result.Id
+			};
+		}
+
+		public async Task<UpdateBoardDescriptionResult> Handle(UpdateBoardDescriptionCommand request, CancellationToken cancellationToken)
+		{
+			if (string.IsNullOrWhiteSpace(request.BoardId)) {
+				throw new ArgumentException("Cannot update board info when BoardId is set to empty or null");
+			}
+
+			if (string.IsNullOrWhiteSpace(request.Description)) {
+				request.Description = null;
+			}
+
+			var board = new Models.Board
+			{
+				Id = request.BoardId,
+				Description = request.Description
+			};
+
+			var result = await boardRepository.UpdateBoardAsync(board);
+
+			return new UpdateBoardDescriptionResult {
 				BoardId = result.Id
 			};
 		}

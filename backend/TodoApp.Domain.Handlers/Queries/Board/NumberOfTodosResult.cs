@@ -6,5 +6,6 @@ namespace TodoApp.Domain.Handlers.Queries.Board
     {
 		public string BoardId { get; set; }
 		public int NumberOfTodos { get; set; }
+		public NumberOfTodosQuery.Filter TodoFilter { get; set; }
 	}
 }

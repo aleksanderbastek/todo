@@ -7,7 +7,10 @@ using TodoApp.Domain.Repositories.Abstractions.Readable;
 namespace TodoApp.Domain.Handlers.Queries.Todo
 {
 	public class TodoQueriesHandler :
-		IQueryHandler<TodosOfBoardQuery, TodosOfBoardResult>
+		IQueryHandler<TodosOfBoardQuery, TodosOfBoardResult>,
+		IQueryHandler<DoneTodosOfBoardQuery, DoneTodosOfBoardResult>,
+		IQueryHandler<UndoneTodosOfBoardQuery, UndoneTodosOfBoardResult>,
+		IQueryHandler<TodoInfoQuery, TodoInfoResult>
 	{
 		private IReadableTodoRepository todoRepository;
 
@@ -38,6 +41,69 @@ namespace TodoApp.Domain.Handlers.Queries.Todo
 				NumberOfRequestedTodos = request.NumberOfRequestedTodos,
 				NumberOfSkippedTodos = request.NumberOfSkippedTodos,
 				Result = result
+			};
+		}
+
+		public async Task<DoneTodosOfBoardResult> Handle(DoneTodosOfBoardQuery request, CancellationToken cancellationToken)
+		{
+			if (string.IsNullOrWhiteSpace(request.BoardId)) {
+				throw new ArgumentException("BoardId cannot be null or white space");
+			}
+
+			if (request.Take < 1) {
+				throw new ArgumentException("Take cannot be less than one");
+			}
+
+			var result = await todoRepository.GetDoneTodosOfBoardAsync(request.BoardId, request.Take, request.Skip);
+
+			return new DoneTodosOfBoardResult
+			{
+				BoardId = request.BoardId,
+				Take = request.Take,
+				Skip = request.Skip,
+				Result = result
+			};
+		}
+
+		public async Task<UndoneTodosOfBoardResult> Handle(UndoneTodosOfBoardQuery request, CancellationToken cancellationToken)
+		{
+			if (string.IsNullOrWhiteSpace(request.BoardId)) {
+				throw new ArgumentException("BoardId cannot be null or white space");
+			}
+
+			if (request.Take < 1) {
+				throw new ArgumentException("Take cannot be less than one");
+			}
+
+			var result = await todoRepository.GetUndoneTodosOfBoardAsync(request.BoardId, request.Take, request.Skip);
+
+			return new UndoneTodosOfBoardResult
+			{
+				BoardId = request.BoardId,
+				Take = request.Take,
+				Skip = request.Skip,
+				Result = result
+			};
+		}
+
+		public async Task<TodoInfoResult> Handle(TodoInfoQuery request, CancellationToken cancellationToken)
+		{
+			if (string.IsNullOrWhiteSpace(request.TodoId)) {
+				throw new ArgumentException("TodoId cannot be null or white space");
+			}
+
+			if (!await todoRepository.CheckTodoExistsAsync(request.TodoId)) {
+				return new TodoInfoResult
+				{
+					Result = null
+				};
+			}
+
+			var todo = await todoRepository.GetTodoAsync(request.TodoId);
+
+			return new TodoInfoResult
+			{
+				Result = todo
 			};
 		}
 	}

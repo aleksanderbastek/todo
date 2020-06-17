@@ -27,17 +27,16 @@ namespace TodoApp.Domain.Repositories.Concretes.Readable
 				Id = todoId
 			};
 
-			return CheckTodoExistsAsync(todo);
-		}
-
-		public Task<bool> CheckTodoExistsAsync(Todo todo)
-		{
 			return context.Todos.ContainsAsync(todo);
 		}
 
-		public Task<List<Todo>> GetAllTodosOfBoardAsync(Board board)
+		public async Task<Todo> GetTodoAsync(string todoId)
 		{
-			return GetAllTodosOfBoardAsync(board.Id);
+			if (!await CheckTodoExistsAsync(todoId)) {
+				throw new ArgumentException("Todo with specified Id does not exist");
+			}
+
+			return await context.Todos.SingleAsync(t => t.Id == todoId);
 		}
 
 		public async Task<List<Todo>> GetAllTodosOfBoardAsync(string boardId)
@@ -49,9 +48,30 @@ namespace TodoApp.Domain.Repositories.Concretes.Readable
 			return await context.Todos.Where(t => t.BoardId == boardId).ToListAsync();
 		}
 
-		public Task<int> GetNumberOfTodosOfBoardAsync(Board board)
+		public async Task<List<Todo>> GetDoneTodosOfBoardAsync(string boardId, int numberOfTodos, int numberOfTodosToSkip)
 		{
-			return GetNumberOfTodosOfBoardAsync(board.Id);
+			if (!await boardRepository.CheckBoardExistsAsync(boardId)) {
+				throw new ArgumentException("Board with specified Id does not exist");
+			}
+
+			return await context.Todos
+				.Where(t => t.BoardId == boardId && t.DoneDate != null)
+				.Skip(numberOfTodosToSkip)
+				.Take(numberOfTodos)
+				.ToListAsync();
+		}
+
+		public async Task<List<Todo>> GetUndoneTodosOfBoardAsync(string boardId, int numberOfTodos, int numberOfTodosToSkip)
+		{
+			if (!await boardRepository.CheckBoardExistsAsync(boardId)) {
+				throw new ArgumentException("Board with specified Id does not exist");
+			}
+
+			return await context.Todos
+				.Where(t => t.BoardId == boardId && t.DoneDate == null)
+				.Skip(numberOfTodosToSkip)
+				.Take(numberOfTodos)
+				.ToListAsync();
 		}
 
 		public async Task<int> GetNumberOfTodosOfBoardAsync(string boardId)
@@ -65,9 +85,26 @@ namespace TodoApp.Domain.Repositories.Concretes.Readable
 				.CountAsync();
 		}
 
-		public Task<List<Todo>> GetSubsetOfTodosOfBoardAsync(Board board, int numberOfTodos, int numberOfTodosToSkip)
+		public async Task<int> GetNumberOfDoneTodosOfBoardAsync(string boardId)
 		{
-			return GetSubsetOfTodosOfBoardAsync(board.Id, numberOfTodos, numberOfTodosToSkip);
+			if (!await boardRepository.CheckBoardExistsAsync(boardId)) {
+				throw new ArgumentException("Board with specified Id does not exist");
+			}
+
+			return await context.Todos
+				.Where(t => t.BoardId == boardId && t.DoneDate != null)
+				.CountAsync();
+		}
+
+		public async Task<int> GetNumberOfUndoneTodosOfBoardAsync(string boardId)
+		{
+			if (!await boardRepository.CheckBoardExistsAsync(boardId)) {
+				throw new ArgumentException("Board with specified Id does not exist");
+			}
+
+			return await context.Todos
+				.Where(t => t.BoardId == boardId && t.DoneDate == null)
+				.CountAsync();
 		}
 
 		public async Task<List<Todo>> GetSubsetOfTodosOfBoardAsync(string boardId, int numberOfTodos, int numberOfTodosToSkip)
