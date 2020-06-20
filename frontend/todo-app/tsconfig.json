@@ -11,18 +11,6 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "plugins": [
-      {
-        "name": "ts-graphql-plugin",
-        "schema": {
-          "http": {
-            "url": "http://localhost:5000/graphql",
-            "method": "POST"
-          }
-        },
-        "tag": "gql"
-      }
-    ],
     "lib": [
       "es2018",
       "dom",
