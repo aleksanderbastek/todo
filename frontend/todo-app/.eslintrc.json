@@ -164,7 +164,7 @@ Happy linting! 💖
         "@typescript-eslint/prefer-regexp-exec": "error",
         "@typescript-eslint/quotes": [
             "error",
-            "single"
+            "double"
         ],
         "@typescript-eslint/require-await": "error",
         "@typescript-eslint/restrict-plus-operands": "error",
