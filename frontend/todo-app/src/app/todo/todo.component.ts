@@ -4,18 +4,18 @@ import { ApiService } from "../api.service";
 import { task } from "../task";
 
 @Component({
-  selector: "app-todo",
-  templateUrl: "./todo.component.html",
-  styleUrls: ["./todo.component.css"],
+	selector: "app-todo",
+	templateUrl: "./todo.component.html",
+	styleUrls: ["./todo.component.css"],
 })
 export class TodoComponent implements OnInit {
-  tasks: task[];
+	tasks: task[];
 
-  constructor(private api: ApiService) { }
+	constructor(private api: ApiService) { }
 
-  // do zainspirowania się
+	// do zainspirowania się
 
-  /*
+	/*
     getTasks(): void {
       this.api.getTasks().subscribe((tasks) => (this.tasks = tasks));
     }
@@ -34,6 +34,6 @@ export class TodoComponent implements OnInit {
       this.api.deleteTask(Task).subscribe();
     }
     */
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
 }
