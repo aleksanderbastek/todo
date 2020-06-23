@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 
-// ADD
+// POST
 export const createBoard = gql`
 mutation createBoard($title: String!,$description:String)
 {
@@ -84,7 +84,7 @@ mutation todo($id:String!, $title:String!, $deadline:DateTime, $doneDate:DateTim
 `;
 
 export const markTodoAsDone = gql`
-  mutation todo($id:String!)
+  mutation markTodoAsDone($id:String!)
   {
     todo(id: $id) {
       markTodoAsDone {
@@ -96,7 +96,7 @@ export const markTodoAsDone = gql`
 `;
 
 export const markTodoAsUndone = gql`
-  mutation todo($id:String!)
+  mutation markTodoAsUndone($id:String!)
   {
     todo(id: $id) {
       markTodoAsUndone {
