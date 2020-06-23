@@ -89,6 +89,7 @@ export const markTodoAsDone = gql`
     todo(id: $id) {
       markTodoAsDone {
         isSuccessfull
+        errorReason
       }
     }
   }
@@ -100,6 +101,7 @@ export const markTodoAsUndone = gql`
     todo(id: $id) {
       markTodoAsUndone {
         isSuccessfull
+        errorReason
       }
     }
   }
