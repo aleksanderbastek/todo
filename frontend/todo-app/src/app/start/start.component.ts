@@ -3,7 +3,7 @@ import { ApiService } from "../api.service";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
-import { createBo } from "../graphql/mutations";
+import { createBoard, createTodo, deleteBoard, deleteTodo, board, todo, markTodoAsDone, markTodoAsUndone } from "../graphql/mutations";
 import { variable } from "@angular/compiler/src/output/output_ast";
 
 @Component({
@@ -13,43 +13,34 @@ import { variable } from "@angular/compiler/src/output/output_ast";
 })
 export class StartComponent implements OnInit {
 
-  title: String = "fourth";
+  title = "five";
 
   constructor(private api: ApiService, private apollo: Apollo) { }
 
   ngOnInit(): void {
 
-    const dupa = gql`
-      query dupa {
-
-      }
-
-    `;
-
-    this.apollo;
-
     this.apollo.mutate<any>({
-      mutation: createBo,
+      mutation: markTodoAsUndone,
       variables: {
-        title: this.title,
+        id: "1da8a6a4-e1a3-4c1f-ab65-18c13de4c212",
       },
     })
       .subscribe(
         (data: any) => console.log(data)
       );
     // this.api.getHelloWorld();
-		/*
+    /*
 
-  }
-        }`,
-      })
-      .valueChanges
-      .subscribe((r: any) => {
-        this.descrpt = r.data.board.id;
-        console.log(r);
-      });
-    setTimeout(() => { console.log(this.descrpt) }, 500);
-    */
+      }
+            }`,
+          })
+          .valueChanges
+          .subscribe((r: any) => {
+            this.descrpt = r.data.board.id;
+            console.log(r);
+          });
+        setTimeout(() => { console.log(this.descrpt) }, 500);
+        */
 
   }
 
