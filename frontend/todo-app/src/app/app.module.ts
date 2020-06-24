@@ -14,8 +14,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-
-
 import { BoardComponent } from "./board/board.component";
 import { TodoComponent } from "./todo/todo.component";
 import { StartComponent } from "./start/start.component";
@@ -43,17 +41,19 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 		HttpLinkModule,
 		GraphQLModule,
 	],
-	providers: [{
-		provide: APOLLO_OPTIONS,
-		useFactory: (httpLink: HttpLink) => ({
-			cache: new InMemoryCache(),
-			link: httpLink.create({
-				uri: "http://localhost:5000/graphql",
-				method: "POST" // Wywalić ten post w razie czego
-			})
-		}),
-		deps: [HttpLink]
-	}],
+	providers: [
+		{
+			provide: APOLLO_OPTIONS,
+			useFactory: (httpLink: HttpLink) => ({
+				cache: new InMemoryCache(),
+				link: httpLink.create({
+					uri: "http://localhost:5000/graphql",
+					method: "POST", // Wywalić ten post w razie czego
+				}),
+			}),
+			deps: [HttpLink],
+		},
+	],
 	bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
