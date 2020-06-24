@@ -1,51 +1,38 @@
 import { Component, OnInit } from "@angular/core";
-import { ApiService } from "../api.service";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
+import { createBoard } from "../graphql/mutations";
 
-// import { createBoard, createTodo, deleteBoard, deleteTodo, board, todo, markTodoAsDone, markTodoAsUndone } from "../graphql/mutations";
-
-import { showBoard, getTodos, getDoneTodos, getUndoneTodos, getTodo } from "../graphql/queries";
-import { variable } from "@angular/compiler/src/output/output_ast";
+import { variable } from "@angular/compiler/src/output/output_ast"; // nie pamiętam do czego to
+import { createBoard as boardC } from "../graphql/__generated__/createBoard";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: "app-start",
-  templateUrl: "./start.component.html",
-  styleUrls: ["./start.component.css"]
+	selector: "app-start",
+	templateUrl: "./start.component.html",
+	styleUrls: ["./start.component.css"],
 })
 export class StartComponent implements OnInit {
+	constructor(private apollo: Apollo, private router: Router) {}
 
-  title = "five";
+	gotoItems(id: string) {
+		this.router.navigate(["/todo", id]);
+	}
 
-  constructor(private api: ApiService, private apollo: Apollo) { }
+	createBoard() {
+		this.apollo
+			.mutate<any>({
+				mutation: createBoard,
+				variables: {
+					title: "lista domyslna",
+				},
+			})
+			.subscribe((data: any) => {
+				const createdBoard: boardC = data;
+				this.gotoItems(createdBoard.data.createBoard.result.boardId);
+			});
+	}
 
-  ngOnInit(): void {
-
-    this.apollo.query<any>({
-      query: getTodo,
-      variables: {
-        id: "9402c063-399b-4552-a7f2-657613c68f46",
-      },
-    })
-      .subscribe(
-        (data: any) => console.log(data)
-      );
-
-    // this.api.getHelloWorld();
-    /*
-
-      }
-            }`,
-          })
-          .valueChanges
-          .subscribe((r: any) => {
-            this.descrpt = r.data.board.id;
-            console.log(r);
-          });
-        setTimeout(() => { console.log(this.descrpt) }, 500);
-        */
-
-  }
-
+	ngOnInit(): void {}
 }

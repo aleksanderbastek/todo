@@ -12,14 +12,14 @@ const routes: Routes = [
 		data: { title: "Board" },
 	},
 	{
-		path: "todo",
+		path: "todo/:id",
 		component: TodoComponent,
 		data: { title: "todo list" },
 	},
 	{
 		path: "start",
 		component: StartComponent,
-		data: { title: "start" }
+		data: { title: "start" },
 	},
 
 	{ path: "", redirectTo: "/start", pathMatch: "full" },
@@ -29,4 +29,4 @@ const routes: Routes = [
 	imports: [RouterModule.forRoot(routes)],
 	exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
