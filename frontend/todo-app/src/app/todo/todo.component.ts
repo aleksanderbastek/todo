@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../api.service";
 
+import { ActivatedRoute } from "@angular/router";
+import { Location } from "@angular/common";
+
 import { task } from "../task";
 
 @Component({
@@ -11,7 +14,7 @@ import { task } from "../task";
 export class TodoComponent implements OnInit {
 	tasks: task[];
 
-	constructor(private api: ApiService) { }
+	constructor(private route: ActivatedRoute, private location: Location) {}
 
 	// do zainspirowania się
 
@@ -35,5 +38,6 @@ export class TodoComponent implements OnInit {
     }
     */
 	ngOnInit(): void {
+		console.log(this.route.snapshot.paramMap.get("id"));
 	}
 }
