@@ -1,22 +1,19 @@
 button#button1 {
-  position: relative;
-  bottom: 8px;
-  height: 50px;
+	position: relative;
+	bottom: 8px;
+	height: 50px;
 }
-#delete {
-  position: relative;
-  float: left;
-  margin: 0px;
-}
+
 #list {
-  position: relative;
-  float: left;
-  width: 80%;
+	width: 80%;
 }
-#input{
-  width:77%;
-  margin-left: 5%;
+#input {
+	width: 77%;
+	margin-left: 5%;
 }
-div#ld{
-  margin-left: 5%;
+div#ld {
+	margin-left: 5%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
