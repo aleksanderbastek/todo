@@ -26,6 +26,7 @@ export class TodoComponent implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private location: Location,
+		private api: ApiService,
 		private apollo: Apollo
 	) {}
 
@@ -35,26 +36,13 @@ export class TodoComponent implements OnInit {
 	}
 
 	getMyTodos(id$: string, take$: number) {
-		this.apollo
-			.query<any>({
-				query: getTodos,
-				variables: {
-					id: id$,
-					take: take$,
-				},
-			})
-			.subscribe((data: any) => {
-				this.todos = data.data.board.todos;
-			});
+		this.api.getMyTodos(id$, take$).subscribe((data: any) => {
+			this.todos = data.data.board.todos;
+		});
 	}
 
-	getMyTodo(id$: string): Observable<ApolloQueryResult<gT>> {
-		return this.apollo.query<any>({
-			query: getTodo,
-			variables: {
-				id: id$,
-			},
-		});
+	getMyTodo(id$: string) {
+		return this.api.getMyTodo(id$);
 	}
 
 	// mutacje
@@ -64,30 +52,17 @@ export class TodoComponent implements OnInit {
 		if (!name) {
 			return;
 		}
-		this.apollo
-			.mutate<any>({
-				mutation: createTodo,
-				variables: {
-					boardId: this.boardId,
-					title: name,
-				},
-			})
-			.subscribe((todoa: any) => {
-				const todoId: string = todoa.data.createTodo.result.todoId;
+		this.api.createMyTodo(this.boardId, name).subscribe((todoP: any) => {
+			const todoId: string = todoP.data.createTodo.result.todoId;
 
-				this.getMyTodo(todoId).subscribe((todo) => {
-					this.todos.push(todo.data.todo);
-				});
+			this.getMyTodo(todoId).subscribe((todo) => {
+				this.todos.push(todo.data.todo);
 			});
+		});
 	}
 
 	deleteMyTodo(todoId: string) {
-		this.apollo.mutate<any>({
-			mutation: deleteTodo,
-			variables: {
-				id: todoId,
-			},
-		});
+		this.api.deleteMyTodo(todoId).subscribe();
 		this.todos = this.todos.filter((t) => t.id !== todoId);
 	}
 

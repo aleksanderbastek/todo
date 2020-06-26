@@ -3,71 +3,68 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { Observable, of } from "rxjs";
-import { catchError, map, tap } from "rxjs/operators";
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
-
-import { task } from "./task";
+import { createBoard, createTodo, deleteTodo } from "./graphql/mutations";
+import { FetchResult } from "apollo-link";
+import { createBoard as boardC } from "./graphql/__generated__/createBoard";
+import { getTodos, getTodo } from "./graphql/queries";
 
 @Injectable({
 	providedIn: "root",
 })
 export class ApiService {
-	/*
-  private tasksUrl = "api/tasks";
-  private boardUrl = "api/board";
-  */
-	httpOptions = {
-		headers: new HttpHeaders({ "Content-Type": "application/json" }),
-	};
+	constructor(private apollo: Apollo) {}
 
-	constructor(private http: HttpClient, private apollo: Apollo) { }
+	// zapytania
 
-	private handleError<T>(operation = "operation", result?: T) {
-		return (error: any): Observable<T> => {
-			// TODO: send the error to remote logging infrastructure
-			console.error(error); // log to console instead
-
-			// Let the app keep running by returning an empty result.
-			return of(result);
-		};
+	getMyTodo(apiId: string) {
+		return this.apollo.query<any>({
+			query: getTodo,
+			variables: {
+				id: apiId,
+			},
+		});
 	}
 
-	// do zainspirowania się
+	getMyTodos(apiId: string, take$: number) {
+		return this.apollo.query<any>({
+			query: getTodos,
+			variables: {
+				id: apiId,
+				take: take$,
+			},
+		});
+	}
 
-	/*
-  getTasks(): Observable<task[]> {
-    return this.http.get<task[]>(this.tasksUrl).pipe(
-      tap((_) => console.log("fetched tasks")),
-      catchError(this.handleError<task[]>("getTasks", []))
-    );
-  }
-  addTask(Task: task): Observable<task> {
-    return this.http.post<task>(this.tasksUrl, Task, this.httpOptions).pipe(
-      tap((newTask: task) =>
-        console.log(`added task ${newTask.id} ${newTask.name}`)
-      ),
-      catchError(this.handleError<task>("addTask"))
-    ); //dodawanie zadań
-  }
+	// mutacje
 
-  deleteTask(Task: task | number): Observable<task> {
-    const id = typeof Task === "number" ? Task : Task.id;
-    const url = `${this.tasksUrl}/${id}`;
+	createMyBoard() {
+		return this.apollo.mutate<any>({
+			mutation: createBoard,
+			variables: {
+				title: "lista domyslna",
+			},
+		});
+	}
 
-    return this.http.delete<task>(url, this.httpOptions).pipe(
-      tap((_) => console.log(`deleted task id = ${id}`)),
-      catchError(this.handleError<task>("deleteTask"))
-    );
-  }
+	createMyTodo(apiId: string, name: string) {
+		return this.apollo.mutate<any>({
+			mutation: createTodo,
+			variables: {
+				boardId: apiId,
+				title: name,
+			},
+		});
+	}
 
-  getBoard(): Observable<task[]> {
-    return this.http.get<task[]>(this.boardUrl).pipe(
-      tap((_) => console.log("fetched board")),
-      catchError(this.handleError<task[]>("getBoard", []))
-    );
-  }
-  */
-
+	deleteMyTodo(apiId: string) {
+		return this.apollo.mutate<any>({
+			mutation: deleteTodo,
+			variables: {
+				id: apiId,
+			},
+		});
+	}
 }
