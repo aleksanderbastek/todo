@@ -19,6 +19,10 @@ export const createTodo = gql`
 		createTodo(boardId: $boardId, deadline: $deadline, title: $title) {
 			isSuccessfull
 			errorReason
+
+			result {
+				todoId
+			}
 		}
 	}
 `;
@@ -54,7 +58,7 @@ export const board = gql`
 			}
 			updateBoardDescription(description: $description) {
 				isSuccessfull
-				isSuccessfull
+				errorReason
 			}
 		}
 	}
