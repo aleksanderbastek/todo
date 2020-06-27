@@ -1,11 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Apollo } from "apollo-angular";
-import gql from "graphql-tag";
-
-import { variable } from "@angular/compiler/src/output/output_ast"; // nie pamiętam do czego to
 import { createBoard } from "../graphql/__generated__/createBoard";
 import { Router } from "@angular/router";
 import { ApiService } from "../api.service";
+
+import { Apollo } from "apollo-angular";
 
 @Component({
 	selector: "app-start",

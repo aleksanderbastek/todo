@@ -1,18 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../api.service";
-
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
-
-import { task } from "../task";
 import { Apollo } from "apollo-angular";
-import { query } from "@angular/animations";
-import { getTodos, getTodo } from "../graphql/queries";
 import { getTodos_board_todos } from "../graphql/__generated__/getTodos";
-import { createTodo, deleteTodo } from "../graphql/mutations";
-import { Observable } from "rxjs";
-import { getTodo as gT } from "../graphql/__generated__/getTodo";
-import { ApolloQueryResult } from "apollo-client";
 
 @Component({
 	selector: "app-todo",
@@ -21,7 +12,6 @@ import { ApolloQueryResult } from "apollo-client";
 })
 export class TodoComponent implements OnInit {
 	boardId: string;
-	tasks: getTodos_board_todos[];
 	todos: getTodos_board_todos[];
 	constructor(
 		private route: ActivatedRoute,

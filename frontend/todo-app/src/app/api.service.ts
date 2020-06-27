@@ -1,14 +1,6 @@
 import { Injectable } from "@angular/core";
-
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-
-import { Observable, of } from "rxjs";
-
 import { Apollo } from "apollo-angular";
-import gql from "graphql-tag";
 import { createBoard, createTodo, deleteTodo } from "./graphql/mutations";
-import { FetchResult } from "apollo-link";
-import { createBoard as boardC } from "./graphql/__generated__/createBoard";
 import { getTodos, getTodo } from "./graphql/queries";
 
 @Injectable({
