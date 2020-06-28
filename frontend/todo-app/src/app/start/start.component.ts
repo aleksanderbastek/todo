@@ -14,7 +14,7 @@ export class StartComponent implements OnInit {
 	constructor(private router: Router, private api: ApiService) {}
 
 	gotoItems(id: string) {
-		this.router.navigate(["/todo", id]);
+		this.router.navigate(["/board", id]);
 	}
 
 	createMyBoard() {

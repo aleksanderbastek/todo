@@ -15,7 +15,6 @@ import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { BoardComponent } from "./board/board.component";
-import { TodoComponent } from "./todo/todo.component";
 import { StartComponent } from "./start/start.component";
 
 import { GraphQLModule } from "./graphql.module";
@@ -24,7 +23,7 @@ import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
 @NgModule({
-	declarations: [AppComponent, BoardComponent, TodoComponent, StartComponent],
+	declarations: [AppComponent, BoardComponent, StartComponent],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
