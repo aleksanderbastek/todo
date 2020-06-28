@@ -15,9 +15,9 @@ export class TodoComponent implements OnInit {
 	todos: getTodos_board_todos[];
 	constructor(
 		private route: ActivatedRoute,
-		private location: Location,
+		private location: Location, // to się jeszcze przyda
 		private api: ApiService,
-		private apollo: Apollo
+		private apollo: Apollo // a to mi do testów potrzebne
 	) {}
 
 	// zapytania
@@ -25,14 +25,14 @@ export class TodoComponent implements OnInit {
 		this.boardId = this.route.snapshot.paramMap.get("id");
 	}
 
-	getMyTodos(id$: string, take$: number) {
-		this.api.getMyTodos(id$, take$).subscribe((data: any) => {
+	getMyTodos(id: string, take: number) {
+		this.api.getMyTodos(id, take).subscribe((data: any) => {
 			this.todos = data.data.board.todos;
 		});
 	}
 
-	getMyTodo(id$: string) {
-		return this.api.getMyTodo(id$);
+	getMyTodo(id: string) {
+		return this.api.getMyTodo(id);
 	}
 
 	// mutacje
@@ -56,13 +56,13 @@ export class TodoComponent implements OnInit {
 		this.todos = this.todos.filter((t) => t.id !== todoId);
 	}
 
-	markMyTodo(id$: string, isDone: boolean) {
-		const i = this.todos.findIndex((t) => t.id === id$);
+	markMyTodo(id: string, isDone: boolean) {
+		const i = this.todos.findIndex((t) => t.id === id);
 		if (isDone === true) {
-			this.api.markMyTodoAsUndone(id$).subscribe((data) => console.log(data));
+			this.api.markMyTodoAsUndone(id).subscribe((data) => console.log(data));
 			this.todos[i].isDone = false;
 		} else if (isDone === false) {
-			this.api.markMyTodoAsDone(id$).subscribe((data) => console.log(data));
+			this.api.markMyTodoAsDone(id).subscribe((data) => console.log(data));
 			this.todos[i].isDone = true;
 		}
 	}
