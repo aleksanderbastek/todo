@@ -56,8 +56,20 @@ export class TodoComponent implements OnInit {
 		this.todos = this.todos.filter((t) => t.id !== todoId);
 	}
 
+	markMyTodo(id$: string, isDone: boolean) {
+		const i = this.todos.findIndex((t) => t.id === id$);
+		if (isDone === true) {
+			this.api.markMyTodoAsUndone(id$).subscribe((data) => console.log(data));
+			this.todos[i].isDone = false;
+		} else if (isDone === false) {
+			this.api.markMyTodoAsDone(id$).subscribe((data) => console.log(data));
+			this.todos[i].isDone = true;
+		}
+	}
+
 	ngOnInit(): void {
 		this.getMyId();
 		this.getMyTodos(this.boardId, 30);
 	}
 }
+// boardId: 68e00bcc-4109-4a9c-890f-95bdafa7dc65
