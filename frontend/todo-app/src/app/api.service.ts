@@ -1,15 +1,14 @@
 import { Injectable } from "@angular/core";
-
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-
-import { Observable, of } from "rxjs";
-
 import { Apollo } from "apollo-angular";
-import gql from "graphql-tag";
-import { createBoard, createTodo, deleteTodo } from "./graphql/mutations";
-import { FetchResult } from "apollo-link";
-import { createBoard as boardC } from "./graphql/__generated__/createBoard";
+import {
+	createBoard,
+	createTodo,
+	deleteTodo,
+	markTodoAsUndone,
+	markTodoAsDone,
+} from "./graphql/mutations";
 import { getTodos, getTodo } from "./graphql/queries";
+import { variable } from "@angular/compiler/src/output/output_ast";
 
 @Injectable({
 	providedIn: "root",
@@ -62,6 +61,24 @@ export class ApiService {
 	deleteMyTodo(apiId: string) {
 		return this.apollo.mutate<any>({
 			mutation: deleteTodo,
+			variables: {
+				id: apiId,
+			},
+		});
+	}
+
+	markMyTodoAsDone(apiId: string) {
+		return this.apollo.mutate<any>({
+			mutation: markTodoAsDone,
+			variables: {
+				id: apiId,
+			},
+		});
+	}
+
+	markMyTodoAsUndone(apiId: string) {
+		return this.apollo.mutate<any>({
+			mutation: markTodoAsUndone,
 			variables: {
 				id: apiId,
 			},

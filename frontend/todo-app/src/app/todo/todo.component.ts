@@ -1,18 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../api.service";
-
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
-
-import { task } from "../task";
 import { Apollo } from "apollo-angular";
-import { query } from "@angular/animations";
-import { getTodos, getTodo } from "../graphql/queries";
 import { getTodos_board_todos } from "../graphql/__generated__/getTodos";
-import { createTodo, deleteTodo } from "../graphql/mutations";
-import { Observable } from "rxjs";
-import { getTodo as gT } from "../graphql/__generated__/getTodo";
-import { ApolloQueryResult } from "apollo-client";
 
 @Component({
 	selector: "app-todo",
@@ -21,13 +12,12 @@ import { ApolloQueryResult } from "apollo-client";
 })
 export class TodoComponent implements OnInit {
 	boardId: string;
-	tasks: getTodos_board_todos[];
 	todos: getTodos_board_todos[];
 	constructor(
 		private route: ActivatedRoute,
-		private location: Location,
+		private location: Location, // to się jeszcze przyda
 		private api: ApiService,
-		private apollo: Apollo
+		private apollo: Apollo // a to mi do testów potrzebne
 	) {}
 
 	// zapytania
@@ -35,14 +25,14 @@ export class TodoComponent implements OnInit {
 		this.boardId = this.route.snapshot.paramMap.get("id");
 	}
 
-	getMyTodos(id$: string, take$: number) {
-		this.api.getMyTodos(id$, take$).subscribe((data: any) => {
+	getMyTodos(id: string, take: number) {
+		this.api.getMyTodos(id, take).subscribe((data: any) => {
 			this.todos = data.data.board.todos;
 		});
 	}
 
-	getMyTodo(id$: string) {
-		return this.api.getMyTodo(id$);
+	getMyTodo(id: string) {
+		return this.api.getMyTodo(id);
 	}
 
 	// mutacje
@@ -66,8 +56,20 @@ export class TodoComponent implements OnInit {
 		this.todos = this.todos.filter((t) => t.id !== todoId);
 	}
 
+	markMyTodo(id: string, isDone: boolean) {
+		const i = this.todos.findIndex((t) => t.id === id);
+		if (isDone === true) {
+			this.api.markMyTodoAsUndone(id).subscribe((data) => console.log(data));
+			this.todos[i].isDone = false;
+		} else if (isDone === false) {
+			this.api.markMyTodoAsDone(id).subscribe((data) => console.log(data));
+			this.todos[i].isDone = true;
+		}
+	}
+
 	ngOnInit(): void {
 		this.getMyId();
 		this.getMyTodos(this.boardId, 30);
 	}
 }
+// boardId: 68e00bcc-4109-4a9c-890f-95bdafa7dc65

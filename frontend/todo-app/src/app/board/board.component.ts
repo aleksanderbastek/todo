@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { task } from "../task";
 
 @Component({
 	selector: "app-board",
@@ -7,9 +6,7 @@ import { task } from "../task";
 	styleUrls: ["./board.component.css"],
 })
 export class BoardComponent implements OnInit {
-	boardlist: task[];
-
 	constructor() {}
-
+	boardlist = [];
 	ngOnInit(): void {}
 }
