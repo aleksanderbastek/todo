@@ -1,0 +1,7 @@
+{
+	"files.exclude": {
+		".vscode": true,
+		"backend": true,
+		"frontend": true
+	}
+}
