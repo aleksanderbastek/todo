@@ -1,14 +1,14 @@
 # Roadmap of TodoApp project
 - **RELEASE 1.0**
 	- [ ] Board panel
-	- [ ] Creating new boards
+	- [x] Creating new boards
 	- [ ] Deleting boards using special "DELETE THIS BOARD" button
 	- [ ] Updating board title and description
-	- [ ] Adding todos to board
+	- [x] Adding todos to board
 	- [ ] Changing todo title
-	- [ ] Removing todos permanently
-	- [ ] Marking todos as done
-	- [ ] Marking todos as undone
+	- [x] Removing todos permanently
+	- [x] Marking todos as done
+	- [x] Marking todos as undone
 	- [ ] Ability to add todo deadline
 	- [ ] Ability to change or remove todo deadline (if exists)
 	- [ ] Highlighting todos with deadline
