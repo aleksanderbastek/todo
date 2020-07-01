@@ -1,38 +1,37 @@
-# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
-version: '3.4'
+version: "3.4"
 
 services:
-  todoapp-server:
-    image: todoapp-server
-    container_name: TodoApp.Server
+  todoapp-client:
     build:
-      context: .
-      dockerfile: TodoApp.Server/Dockerfile.debug
+      context: ./frontend
+      dockerfile: ./Dockerfile.dev
     ports:
-      - 5000:5000
+      - 4200:80
+    volumes:
+      - ./frontend:/app
+
+  todoapp-server:
+    build:
+      context: ./backend
+      dockerfile: ./TodoApp.Server/Dockerfile.dev
+    ports:
+      - 5000:80
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
-      - ./:/src
-    depends_on:
-      - pg-db
-    networks:
-      - backend
+      - ./backend:/src
 
   pg-db:
-    image: postgres
-    restart: always
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: SimplePassword1
-    networks:
-      - backend
     logging:
       driver: none
 
   pg-admin:
     image: dpage/pgadmin4
+    container_name: TodoApp.PgAdmin
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@backend.com
       PGADMIN_DEFAULT_PASSWORD: SimplePassword1
@@ -44,7 +43,7 @@ services:
       - pg-db
     logging:
       driver: none
+    restart: always
 
 networks:
   backend:
-    

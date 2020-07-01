@@ -1,0 +1,4 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+EXPOSE 5000
+WORKDIR /src
+ENTRYPOINT ["dotnet", "watch", "--project", "TodoApp.Server", "run", "--urls", "http://0.0.0.0:80", "--debug"]
