@@ -7,7 +7,7 @@ services:
     depends_on:
       - todoapp-server
     networks:
-      - backend
+      - todoapp-internal
     restart: always
 
   todoapp-server:
@@ -16,14 +16,14 @@ services:
     depends_on:
       - pg-db
     networks:
-      - backend
+      - todoapp-internal
 
   pg-db:
     container_name: TodoApp.PgDatabase
     image: postgres
     restart: always
     networks:
-      - backend
+      - todoapp-internal
 
 networks:
-  backend:
+  todoapp-internal:

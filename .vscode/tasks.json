@@ -6,12 +6,12 @@
 		{
 			"label": "Build TodoApp in debug configuration",
 			"type": "shell",
-			"command": "docker-compose -f docker-compose.debug.yml build"
+			"command": "docker-compose -f src/docker-compose.yml -f src/docker-compose.dev.yml build"
 		},
 		{
 			"label": "Run TodoApp in debug configuration",
 			"type": "shell",
-			"command": "docker-compose -f docker-compose.debug.yml up --remove-orphans",
+			"command": "docker-compose -f src/docker-compose.yml -f src/docker-compose.dev.yml up --remove-orphans",
 			"dependsOn": ["Build TodoApp in debug configuration"],
 			"runOptions": {
 				"runOn": "folderOpen"
