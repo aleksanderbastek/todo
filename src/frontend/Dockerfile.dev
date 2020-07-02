@@ -1,4 +1,6 @@
 FROM node:12.18.1
+
+# docker-compose shares src/frontend directory under /app
 WORKDIR /app
 
 ENTRYPOINT ["/bin/bash", "./entrypoint.sh"]
