@@ -5,7 +5,10 @@ Server API is written using **GraphQL**.
 
 Work in progress. See [roadmap](./ROADMAP.md) for more details.
 
-# How to setup development environment
+# Development environment
+
+Client application supports auto reload on change.
+Server application restarts every backend code change. On server error application waits for debugger attach and then restarts or for file change, then rebuilds backend and restarts it.
 
 ## Requirements:
 
@@ -39,3 +42,26 @@ It will install all necessary dependencies for every project automatically and s
 -   PgAdmin 4: [http://localhost:5050](http://localhost:5050)
     -   Default login: `admin@backend.com`
     -   Default password: `SimplePassword1`
+
+## Code editor:
+
+We are using **Visual Studio Core** as our main code editor.
+
+Open [workspace](./todo.code-workspace) file using Visual Studio Code and install recommended extensions.
+
+### VSCode tasks
+
+You can access available tasks by pressing `Ctrl + Shift + P` on Windows or equivalent on other systems and typing `Tasks: Run Task`. Available tasks are:
+
+-   Build TodoApp in debug configuration
+    Builds TodoApp images by running `docker-compose -f src/docker-compose.yml -f src/docker-compose.dev.yml build` command
+-   Run TodoApp in debug configuration
+    Builds TodoApp using previous task and starts application environment by running `docker-compose -f src/docker-compose.yml -f src/docker-compose.dev.yml up` command
+
+Note that `Run TodoApp in debug configuration` will run automatically on every workspace open. Just wait a while for environment startup.
+
+### VSCode debug configurations
+
+There is only one debug configuration for TodoApp.Server backend project. You can select it form the debug side panel of VSCode.
+
+-   `Attach to TodoApp.Server` - attaches debugger to server application. You can restart application by pressing restart button or by detaching and attaching debugger within 30 seconds. If application crashes - it automatically waits for debugger to attach and then restarts the server with debugger attached or waits for file change and restarts app.
