@@ -28,3 +28,14 @@ div#ld {
 .sidenav .mat-toolbar {
 	background: inherit;
 }
+.home {
+	padding-left: 10px;
+}
+.add-icon {
+	height: 1vh;
+}
+.add {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../api.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { Apollo } from "apollo-angular";
 import { getTodos_board_todos } from "../graphql/__generated__/getTodos";
@@ -25,7 +25,7 @@ export class BoardComponent implements OnInit {
 		);
 	constructor(
 		private route: ActivatedRoute,
-		private location: Location, // to się jeszcze przyda
+		private router: Router,
 		private api: ApiService,
 		private apollo: Apollo, // a to mi do testów potrzebne
 		private breakpointObserver: BreakpointObserver
@@ -34,6 +34,9 @@ export class BoardComponent implements OnInit {
 	// zapytania
 	getMyId() {
 		this.boardId = this.route.snapshot.paramMap.get("id");
+	}
+	goBack(): void {
+		this.router.navigate(["/start"]);
 	}
 
 	getMyTodos(id: string, take: number) {
