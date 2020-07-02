@@ -1,43 +1,77 @@
-<mat-form-field appearance="fill" id="input">
-	<mat-label>Wpisz nowe zadanie</mat-label>
-	<input matInput #todoName />
-</mat-form-field>
+<mat-toolbar color="primary">
+	<button
+		type="button"
+		aria-label="Toggle sidenav"
+		mat-icon-button
+		(click)="drawer.toggle()"
+	>
+		<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+	</button>
+	<span>test-app</span>
+</mat-toolbar>
 
-<button
-	mat-raised-button
-	color="primary"
-	id="button1; taskName.value = ''"
-	(click)="createMyTodo(todoName.value)"
->
-	Dodaj
-</button>
+<mat-sidenav-container class="sidenav-container">
+	<mat-sidenav
+		color="primary"
+		#drawer
+		class="sidenav"
+		[fixedInViewport]="false"
+		[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+		[mode]="(isHandset$ | async) ? 'over' : 'side'"
+		[opened]="(isHandset$ | async) === false"
+	>
+		<mat-toolbar>Menu</mat-toolbar>
+		<mat-nav-list>
+			<a mat-list-item href="#">Link 1</a>
+			<a mat-list-item href="#">Link 2</a>
+			<a mat-list-item href="#">Link 3</a>
+		</mat-nav-list>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<!--Content-->
 
-<div id="ld">
-	<div>
-		<mat-list>
-			<mat-list-item *ngFor="let todo of todos">
-				<button
-					mat-icon-button
-					color="warn"
-					id="delete"
-					aria-label="Example icon button with a heart icon"
-					(click)="deleteMyTodo(todo.id)"
-				>
-					<mat-icon>delete</mat-icon>
-				</button>
-			</mat-list-item>
-		</mat-list>
-	</div>
+		<mat-form-field appearance="fill" id="input">
+			<mat-label>Wpisz nowe zadanie</mat-label>
+			<input matInput #todoName />
+		</mat-form-field>
 
-	<div id="list">
-		<mat-selection-list id="list">
-			<mat-list-option
-				*ngFor="let todo of todos"
-				(click)="markMyTodo(todo.id, todo.isDone)"
-				selected="{{ todo.isDone }}"
-			>
-				{{ todo.title }}
-			</mat-list-option>
-		</mat-selection-list>
-	</div>
-</div>
+		<button
+			mat-raised-button
+			color="primary"
+			id="button1; taskName.value = ''"
+			(click)="createMyTodo(todoName.value)"
+		>
+			Dodaj
+		</button>
+
+		<div id="ld">
+			<div>
+				<mat-list>
+					<mat-list-item *ngFor="let todo of todos">
+						<button
+							mat-icon-button
+							color="warn"
+							id="delete"
+							aria-label="Example icon button with a heart icon"
+							(click)="deleteMyTodo(todo.id)"
+						>
+							<mat-icon>delete</mat-icon>
+						</button>
+					</mat-list-item>
+				</mat-list>
+			</div>
+
+			<div id="list">
+				<mat-selection-list id="list">
+					<mat-list-option
+						*ngFor="let todo of todos"
+						(click)="markMyTodo(todo.id, todo.isDone)"
+						selected="{{ todo.isDone }}"
+					>
+						{{ todo.title }}
+					</mat-list-option>
+				</mat-selection-list>
+			</div>
+		</div>
+	</mat-sidenav-content>
+</mat-sidenav-container>

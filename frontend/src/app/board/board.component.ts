@@ -5,6 +5,10 @@ import { Location } from "@angular/common";
 import { Apollo } from "apollo-angular";
 import { getTodos_board_todos } from "../graphql/__generated__/getTodos";
 
+import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { Observable } from "rxjs";
+import { map, shareReplay } from "rxjs/operators";
+
 @Component({
 	selector: "app-board",
 	templateUrl: "./board.component.html",
@@ -13,11 +17,18 @@ import { getTodos_board_todos } from "../graphql/__generated__/getTodos";
 export class BoardComponent implements OnInit {
 	boardId: string;
 	todos: getTodos_board_todos[];
+	isHandset$: Observable<boolean> = this.breakpointObserver
+		.observe(Breakpoints.Handset)
+		.pipe(
+			map((result) => result.matches),
+			shareReplay()
+		);
 	constructor(
 		private route: ActivatedRoute,
 		private location: Location, // to się jeszcze przyda
 		private api: ApiService,
-		private apollo: Apollo // a to mi do testów potrzebne
+		private apollo: Apollo, // a to mi do testów potrzebne
+		private breakpointObserver: BreakpointObserver
 	) {}
 
 	// zapytania

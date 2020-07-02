@@ -17,3 +17,14 @@ div#ld {
 	flex-direction: row;
 	justify-content: center;
 }
+.sidenav-container {
+	height: 100vh;
+}
+
+.sidenav {
+	width: 200px;
+}
+
+.sidenav .mat-toolbar {
+	background: inherit;
+}
