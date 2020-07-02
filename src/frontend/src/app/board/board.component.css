@@ -17,3 +17,26 @@ div#ld {
 	flex-direction: row;
 	justify-content: center;
 }
+.sidenav-container {
+	height: 100vh;
+}
+
+.sidenav {
+	width: 200px;
+}
+
+.sidenav .mat-toolbar {
+	background: inherit;
+}
+.home {
+	padding-left: 10px;
+}
+.add-icon {
+	height: 1vh;
+}
+.add {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-left: 10px;
+}

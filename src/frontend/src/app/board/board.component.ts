@@ -1,9 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../api.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { Apollo } from "apollo-angular";
 import { getTodos_board_todos } from "../graphql/__generated__/getTodos";
+
+import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { Observable } from "rxjs";
+import { map, shareReplay } from "rxjs/operators";
 
 @Component({
 	selector: "app-board",
@@ -13,16 +17,26 @@ import { getTodos_board_todos } from "../graphql/__generated__/getTodos";
 export class BoardComponent implements OnInit {
 	boardId: string;
 	todos: getTodos_board_todos[];
+	isHandset$: Observable<boolean> = this.breakpointObserver
+		.observe(Breakpoints.Handset)
+		.pipe(
+			map((result) => result.matches),
+			shareReplay()
+		);
 	constructor(
 		private route: ActivatedRoute,
-		private location: Location, // to się jeszcze przyda
+		private router: Router,
 		private api: ApiService,
-		private apollo: Apollo // a to mi do testów potrzebne
+		private apollo: Apollo, // a to mi do testów potrzebne
+		private breakpointObserver: BreakpointObserver
 	) {}
 
 	// zapytania
 	getMyId() {
 		this.boardId = this.route.snapshot.paramMap.get("id");
+	}
+	goBack(): void {
+		this.router.navigate(["/start"]);
 	}
 
 	getMyTodos(id: string, take: number) {
@@ -59,12 +73,28 @@ export class BoardComponent implements OnInit {
 	markMyTodo(id: string, isDone: boolean) {
 		const i = this.todos.findIndex((t) => t.id === id);
 		if (isDone === true) {
-			this.api.markMyTodoAsUndone(id).subscribe((data) => console.log(data));
+			this.api.markMyTodoAsUndone(id).subscribe();
 			this.todos[i].isDone = false;
 		} else if (isDone === false) {
-			this.api.markMyTodoAsDone(id).subscribe((data) => console.log(data));
+			this.api.markMyTodoAsDone(id).subscribe();
 			this.todos[i].isDone = true;
 		}
+	}
+	getMyAllTodos() {
+		this.getMyTodos(this.boardId, 30);
+	}
+
+	getMyDoneTodos() {
+		this.getMyTodos(this.boardId, 30);
+		this.api.getMyDoneTodos(this.boardId, 30).subscribe((data: any) => {
+			this.todos = data.data.board.doneTodos;
+		});
+	}
+
+	getMyUndoneTodos() {
+		this.api.getMyUndoneTodos(this.boardId, 30).subscribe((data: any) => {
+			this.todos = data.data.board.undoneTodos;
+		});
 	}
 
 	ngOnInit(): void {

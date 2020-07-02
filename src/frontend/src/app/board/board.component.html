@@ -1,43 +1,91 @@
-<mat-form-field appearance="fill" id="input">
-	<mat-label>Wpisz nowe zadanie</mat-label>
-	<input matInput #todoName />
-</mat-form-field>
+<mat-toolbar color="primary">
+	<button
+		type="button"
+		aria-label="Toggle sidenav"
+		mat-icon-button
+		(click)="drawer.toggle()"
+	>
+		<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+	</button>
+	<button (click)="goBack()" aria-label="Toggle sidenav" mat-icon-button>
+		<mat-icon aria-label="Side nav toggle icon">home</mat-icon>
+	</button>
 
-<button
-	mat-raised-button
-	color="primary"
-	id="button1; taskName.value = ''"
-	(click)="createMyTodo(todoName.value)"
->
-	Dodaj
-</button>
+	<span>Freetodo</span>
+</mat-toolbar>
 
-<div id="ld">
-	<div>
-		<mat-list>
-			<mat-list-item *ngFor="let todo of todos">
-				<button
-					mat-icon-button
-					color="warn"
-					id="delete"
-					aria-label="Example icon button with a heart icon"
-					(click)="deleteMyTodo(todo.id)"
-				>
-					<mat-icon>delete</mat-icon>
-				</button>
-			</mat-list-item>
-		</mat-list>
-	</div>
+<mat-sidenav-container class="sidenav-container">
+	<mat-sidenav
+		color="primary"
+		#drawer
+		class="sidenav"
+		[fixedInViewport]="false"
+		[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+		[mode]="(isHandset$ | async) ? 'over' : 'side'"
+		[opened]="(isHandset$ | async) === false"
+	>
+		<mat-toolbar>Menu</mat-toolbar>
 
-	<div id="list">
-		<mat-selection-list id="list">
-			<mat-list-option
-				*ngFor="let todo of todos"
-				(click)="markMyTodo(todo.id, todo.isDone)"
-				selected="{{ todo.isDone }}"
+		<div class="add">
+			<mat-form-field id="input">
+				<mat-label>Dodaj nowe zadanie</mat-label>
+				<input matInput #todoName />
+			</mat-form-field>
+			<button
+				mat-icon-button
+				color="primary"
+				(click)="createMyTodo(todoName.value)"
 			>
-				{{ todo.title }}
-			</mat-list-option>
-		</mat-selection-list>
-	</div>
-</div>
+				<mat-icon aria-label="Side nav toggle icon" class="add-icon"
+					>add</mat-icon
+				>
+			</button>
+		</div>
+
+		<mat-nav-list>
+			<mat-toolbar>Filtrowanie</mat-toolbar>
+			<mat-list-item mat-list-item (click)="getMyAllTodos()"
+				>Wszystko</mat-list-item
+			>
+			<mat-list-item mat-list-item (click)="getMyDoneTodos()"
+				>Zadania wykonane</mat-list-item
+			>
+			<mat-list-item mat-list-item (click)="getMyUndoneTodos()"
+				>Zadania niewykonane</mat-list-item
+			>
+		</mat-nav-list>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<!--Content-->
+
+		<div id="ld">
+			<div>
+				<mat-list>
+					<mat-list-item *ngFor="let todo of todos">
+						<button
+							mat-icon-button
+							color="warn"
+							id="delete"
+							aria-label="Example icon button with a heart icon"
+							(click)="deleteMyTodo(todo.id)"
+						>
+							<mat-icon>delete</mat-icon>
+						</button>
+					</mat-list-item>
+				</mat-list>
+			</div>
+
+			<div id="list">
+				<mat-selection-list id="list">
+					<mat-list-option
+						*ngFor="let todo of todos"
+						(click)="markMyTodo(todo.id, todo.isDone)"
+						selected="{{ todo.isDone }}"
+					>
+						{{ todo.title }}
+					</mat-list-option>
+				</mat-selection-list>
+			</div>
+		</div>
+	</mat-sidenav-content>
+</mat-sidenav-container>

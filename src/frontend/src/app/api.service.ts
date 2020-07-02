@@ -7,7 +7,12 @@ import {
 	markTodoAsUndone,
 	markTodoAsDone,
 } from "./graphql/mutations";
-import { getTodos, getTodo } from "./graphql/queries";
+import {
+	getTodos,
+	getTodo,
+	getDoneTodos,
+	getUndoneTodos,
+} from "./graphql/queries";
 import { variable } from "@angular/compiler/src/output/output_ast";
 
 @Injectable({
@@ -81,6 +86,26 @@ export class ApiService {
 			mutation: markTodoAsUndone,
 			variables: {
 				id: apiId,
+			},
+		});
+	}
+
+	getMyDoneTodos(apiId: string, take$: number) {
+		return this.apollo.mutate<any>({
+			mutation: getDoneTodos,
+			variables: {
+				id: apiId,
+				take: take$,
+			},
+		});
+	}
+
+	getMyUndoneTodos(apiId: string, take$: number) {
+		return this.apollo.mutate<any>({
+			mutation: getUndoneTodos,
+			variables: {
+				id: apiId,
+				take: take$,
 			},
 		});
 	}
