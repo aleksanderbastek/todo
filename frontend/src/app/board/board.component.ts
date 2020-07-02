@@ -73,12 +73,28 @@ export class BoardComponent implements OnInit {
 	markMyTodo(id: string, isDone: boolean) {
 		const i = this.todos.findIndex((t) => t.id === id);
 		if (isDone === true) {
-			this.api.markMyTodoAsUndone(id).subscribe((data) => console.log(data));
+			this.api.markMyTodoAsUndone(id).subscribe();
 			this.todos[i].isDone = false;
 		} else if (isDone === false) {
-			this.api.markMyTodoAsDone(id).subscribe((data) => console.log(data));
+			this.api.markMyTodoAsDone(id).subscribe();
 			this.todos[i].isDone = true;
 		}
+	}
+	getMyAllTodos() {
+		this.getMyTodos(this.boardId, 30);
+	}
+
+	getMyDoneTodos() {
+		this.getMyTodos(this.boardId, 30);
+		this.api.getMyDoneTodos(this.boardId, 30).subscribe((data: any) => {
+			this.todos = data.data.board.doneTodos;
+		});
+	}
+
+	getMyUndoneTodos() {
+		this.api.getMyUndoneTodos(this.boardId, 30).subscribe((data: any) => {
+			this.todos = data.data.board.undoneTodos;
+		});
 	}
 
 	ngOnInit(): void {
