@@ -8,7 +8,6 @@ services:
       - todoapp-server
     networks:
       - todoapp-internal
-    restart: always
 
   todoapp-server:
     image: todoapp-server
