@@ -1,6 +1,6 @@
 # Todo Application
 
-This is simple todo app written using **Angular** and **Dotnet Core**.
+This is a simple todo app written using **Angular** and **Dotnet Core**.
 Server API is written using **GraphQL**.
 
 Work in progress. See [roadmap](./ROADMAP.md) for more details.
@@ -21,7 +21,7 @@ Server application restarts every backend code change. On server error applicati
 ## Performance note:
 
 -   Visual Studio Code terminal may be slow on some older computers. If you want to make build and startup times faster - use your system terminal instead of VSCode integrated terminal.
--   Sometimes docker does not want to download and extract all images (gets frozen) when using VSCode integrated terminal. If this happens, use your system terminal, it will install all necessary dependencies without any problem.
+-   Sometimes docker does not want to download and extract all images (gets frozen) when using VSCode integrated terminal. If this happens, use your system terminal, it will install all the necessary dependencies without any problem.
 
 ## Setup and startup:
 
@@ -30,7 +30,7 @@ Setup and startup of this project is super simple, just paste this two commands 
 -   `docker-compose -f src/docker-compose.yml -f src/docker-compose.dev.yml build`
 -   `docker-compose -f src/docker-compose.yml -f src/docker-compose.dev.yml up`
 
-It will install all necessary dependencies for every project automatically and start the whole environment up. Docker will ask you for share folders to docker containers, allow for it.
+It will install all the necessary dependencies for every project automatically and start the whole environment up. Docker will ask you to share folders to docker containers, allow for it.
 
 ## Available services:
 
