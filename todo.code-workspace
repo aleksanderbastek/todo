@@ -1,31 +1,31 @@
 {
-  "folders": [
-    {
-      "path": ".",
-      "name": "Root"
-    },
-    {
-      "path": "./frontend",
-      "name": "Frontend"
-    },
-    {
-      "path": "./backend",
-      "name": "Backend"
-    }
-  ],
-  "extensions": {
-    "recommendations": [
-      "ms-vscode.vscode-typescript-tslint-plugin",
-      "angular.ng-template",
-      "apollographql.vscode-apollo",
-      "ms-dotnettools.csharp",
-      "k--kato.docomment",
-      "jchannon.csharpextensions",
-      "ms-azuretools.vscode-docker",
-      "editorconfig.editorconfig",
-      "esbenp.prettier-vscode",
-      "pflannery.vscode-versionlens"
-    ]
-  },
-  "settings": {}
+	"folders": [
+		{
+			"name": "Frontend",
+			"path": "src/frontend"
+		},
+		{
+			"name": "Backend",
+			"path": "src/backend"
+		},
+		{
+			"name": "Project",
+			"path": "."
+		}
+	],
+	"extensions": {
+		"recommendations": [
+			"ms-vscode.vscode-typescript-tslint-plugin",
+			"angular.ng-template",
+			"apollographql.vscode-apollo",
+			"ms-dotnettools.csharp",
+			"k--kato.docomment",
+			"jchannon.csharpextensions",
+			"ms-azuretools.vscode-docker",
+			"editorconfig.editorconfig",
+			"esbenp.prettier-vscode",
+			"pflannery.vscode-versionlens"
+		]
+	},
+	"settings": {}
 }

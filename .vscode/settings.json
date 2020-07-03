@@ -1,7 +1,6 @@
 {
 	"files.exclude": {
-		".vscode": true,
-		"backend": true,
-		"frontend": true
+		"src/backend": true,
+		"src/frontend": true
 	}
 }

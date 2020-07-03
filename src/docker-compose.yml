@@ -1,0 +1,28 @@
+version: "3.4"
+
+services:
+  todoapp-client:
+    image: todoapp-client
+    container_name: TodoApp.Client
+    depends_on:
+      - todoapp-server
+    networks:
+      - todoapp-internal
+
+  todoapp-server:
+    image: todoapp-server
+    container_name: TodoApp.Server
+    depends_on:
+      - pg-db
+    networks:
+      - todoapp-internal
+
+  pg-db:
+    container_name: TodoApp.PgDatabase
+    image: postgres
+    restart: always
+    networks:
+      - todoapp-internal
+
+networks:
+  todoapp-internal:
