@@ -7,8 +7,8 @@ Work in progress. See [roadmap](./ROADMAP.md) for more details.
 
 # Development environment
 
-Client application supports auto reload on change.
-Server application restarts every backend code change. On server error application waits for debugger attach and then restarts or for file change, then rebuilds backend and restarts it.
+The Client application supports auto-reload on change.
+The server application restarts every backend code change. On server, error application waits for debugger attach and then restarts or for file change, then rebuilds backend and restarts it.
 
 ## Requirements:
 
@@ -56,12 +56,12 @@ You can access available tasks by pressing `Ctrl + Shift + P` on Windows or equi
 -   Build TodoApp in debug configuration
     Builds TodoApp images by running `docker-compose -f src/docker-compose.yml -f src/docker-compose.dev.yml build` command
 -   Run TodoApp in debug configuration
-    Builds TodoApp using previous task and starts application environment by running `docker-compose -f src/docker-compose.yml -f src/docker-compose.dev.yml up` command
+    Builds TodoApp using previous task and starts the application environment by running `docker-compose -f src/docker-compose.yml -f src/docker-compose.dev.yml up` command
 
-Note that `Run TodoApp in debug configuration` will run automatically on every workspace open. Just wait a while for environment startup.
+Note that `Run TodoApp in debug configuration` will run automatically on every workspace open. Just wait a while for an environment startup.
 
 ### VSCode debug configurations
 
-There is only one debug configuration for TodoApp.Server backend project. You can select it form the debug side panel of VSCode.
+There is only one debug configuration for TodoApp.Server backend project. You can select it from the debug side panel of VSCode.
 
--   `Attach to TodoApp.Server` - attaches debugger to server application. You can restart application by pressing restart button or by detaching and attaching debugger within 30 seconds. If application crashes - it automatically waits for debugger to attach and then restarts the server with debugger attached or waits for file change and restarts app.
+-   `Attach to TodoApp.Server` - attaches the debugger to the server application. You can restart the application by pressing the restart button or by detaching and attaching debugger within 30 seconds. If the application crashes - it automatically waits for the debugger to attach and then restarts the server with debugger attached or waits for file change and restarts the app.
