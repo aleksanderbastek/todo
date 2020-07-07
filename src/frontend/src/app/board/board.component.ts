@@ -82,7 +82,7 @@ export class BoardComponent implements OnInit {
 		}
 	}
 	getMyAllTodos() {
-		this.getMyTodos(this.boardId, 30);
+		location.reload();
 	}
 
 	getMyDoneTodos() {
