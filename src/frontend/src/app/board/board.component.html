@@ -80,7 +80,8 @@
 					<mat-list-option
 						*ngFor="let todo of todos"
 						(click)="markMyTodo(todo.id, todo.isDone)"
-						selected="{{ todo.isDone }}"
+						[value]="todo.isDone"
+						[selected]="todo.isDone"
 					>
 						{{ todo.title }}
 					</mat-list-option>

@@ -27,6 +27,7 @@ export class BoardComponent implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		private api: ApiService,
+		private location: Location,
 		private apollo: Apollo, // a to mi do testów potrzebne
 		private breakpointObserver: BreakpointObserver
 	) {}
@@ -85,7 +86,6 @@ export class BoardComponent implements OnInit {
 	}
 
 	getMyDoneTodos() {
-		this.getMyTodos(this.boardId, 30);
 		this.api.getMyDoneTodos(this.boardId, 30).subscribe((data: any) => {
 			this.todos = data.data.board.doneTodos;
 		});
@@ -102,4 +102,4 @@ export class BoardComponent implements OnInit {
 		this.getMyTodos(this.boardId, 30);
 	}
 }
-// boardId: 68e00bcc-4109-4a9c-890f-95bdafa7dc65
+// boardId: 2a9a5417-c784-4457-bf78-c24e5c101dad
