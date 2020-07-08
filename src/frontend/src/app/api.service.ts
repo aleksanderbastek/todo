@@ -34,6 +34,7 @@ export class ApiService {
 
 	getMyTodos(apiId: string, take$: number) {
 		return this.apollo.query<any>({
+			fetchPolicy: "network-only",
 			query: getTodos,
 			variables: {
 				id: apiId,
