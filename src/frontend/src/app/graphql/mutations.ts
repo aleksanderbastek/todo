@@ -65,26 +65,13 @@ export const board = gql`
 `;
 
 export const todo = gql`
-	mutation todo(
-		$id: String!
-		$title: String!
-		$deadline: DateTime
-		$doneDate: DateTime
-	) {
+	mutation todo($id: String!, $title: String!, $deadline: DateTime) {
 		todo(id: $id) {
 			updateTitle(title: $title) {
 				isSuccessfull
 				errorReason
 			}
 			updateDeadline(deadline: $deadline) {
-				isSuccessfull
-				errorReason
-			}
-			markTodoAsDone(doneDate: $doneDate) {
-				isSuccessfull
-				errorReason
-			}
-			markTodoAsUndone(doneDate: $doneDate) {
 				isSuccessfull
 				errorReason
 			}
