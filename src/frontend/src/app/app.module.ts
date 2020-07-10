@@ -26,9 +26,18 @@ import { ApolloModule, APOLLO_OPTIONS } from "apollo-angular";
 import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { environment } from "src/environments/environment";
+import { MatDialogModule } from "@angular/material/dialog";
+import { UpdateDialogComponent } from "./update-dialog/update-dialog.component";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
-	declarations: [AppComponent, BoardComponent, StartComponent],
+	declarations: [
+		AppComponent,
+		BoardComponent,
+		StartComponent,
+		UpdateDialogComponent,
+	],
+	entryComponents: [UpdateDialogComponent],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
@@ -40,13 +49,15 @@ import { environment } from "src/environments/environment";
 		MatButtonModule,
 		MatIconModule,
 		MatCardModule,
+		MatDialogModule,
+		MatToolbarModule,
+		MatSidenavModule,
 
 		ApolloModule,
 		HttpLinkModule,
 		GraphQLModule,
 		LayoutModule,
-		MatToolbarModule,
-		MatSidenavModule,
+		FormsModule,
 	],
 	providers: [
 		{

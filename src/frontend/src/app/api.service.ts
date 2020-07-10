@@ -6,6 +6,7 @@ import {
 	deleteTodo,
 	markTodoAsUndone,
 	markTodoAsDone,
+	todo,
 } from "./graphql/mutations";
 import {
 	getTodos,
@@ -107,6 +108,17 @@ export class ApiService {
 			variables: {
 				id: apiId,
 				take: take$,
+			},
+		});
+	}
+
+	updateMyTodo(todoId: string, title$?: string, deadline$?: Date) {
+		return this.apollo.mutate<any>({
+			mutation: todo,
+			variables: {
+				id: todoId,
+				title: title$,
+				deadline: deadline$,
 			},
 		});
 	}

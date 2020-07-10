@@ -64,6 +64,14 @@
 					<mat-list-item *ngFor="let todo of todos">
 						<button
 							mat-icon-button
+							id="delete"
+							aria-label="Example icon button with a heart icon"
+							(click)="openDialog(todo.id)"
+						>
+							<mat-icon>settings</mat-icon>
+						</button>
+						<button
+							mat-icon-button
 							color="warn"
 							id="delete"
 							aria-label="Example icon button with a heart icon"

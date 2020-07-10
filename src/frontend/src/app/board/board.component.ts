@@ -1,13 +1,18 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../api.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Location } from "@angular/common";
-import { Apollo } from "apollo-angular";
 import { getTodos_board_todos } from "../graphql/__generated__/getTodos";
 
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { Observable } from "rxjs";
 import { map, shareReplay } from "rxjs/operators";
+
+import {
+	MatDialog,
+	MatDialogRef,
+	MAT_DIALOG_DATA,
+} from "@angular/material/dialog";
+import { UpdateDialogComponent } from "../update-dialog/update-dialog.component";
 
 @Component({
 	selector: "app-board",
@@ -27,10 +32,21 @@ export class BoardComponent implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		private api: ApiService,
-		private location: Location,
-		private apollo: Apollo, // a to mi do testów potrzebne
-		private breakpointObserver: BreakpointObserver
+		private breakpointObserver: BreakpointObserver,
+		public dialog: MatDialog
 	) {}
+
+	openDialog(todoId$) {
+		const i = this.todos.findIndex((t) => t.id === todoId$);
+		const dialogRef = this.dialog.open(UpdateDialogComponent, {
+			data: { todoId: todoId$, title: this.todos[i].title },
+		});
+
+		dialogRef.afterClosed().subscribe((result) => {
+			console.log(`Dialog result: ${result}`);
+			this.todos[i].title = result;
+		});
+	}
 
 	// zapytania
 	getMyId() {
