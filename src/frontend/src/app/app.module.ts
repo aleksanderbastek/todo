@@ -7,6 +7,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatCardModule } from "@angular/material/card";
+import { MatDatepickerModule } from "@angular/material/datepicker";
 
 import { LayoutModule } from "@angular/cdk/layout";
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -52,6 +53,7 @@ import { FormsModule } from "@angular/forms";
 		MatDialogModule,
 		MatToolbarModule,
 		MatSidenavModule,
+		MatDatepickerModule,
 
 		ApolloModule,
 		HttpLinkModule,

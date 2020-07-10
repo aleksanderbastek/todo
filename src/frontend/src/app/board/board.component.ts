@@ -44,7 +44,9 @@ export class BoardComponent implements OnInit {
 
 		dialogRef.afterClosed().subscribe((result) => {
 			console.log(`Dialog result: ${result}`);
-			this.todos[i].title = result;
+			if (result !== undefined) {
+				this.todos[i].title = result;
+			}
 		});
 	}
 

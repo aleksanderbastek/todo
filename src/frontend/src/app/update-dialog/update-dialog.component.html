@@ -2,7 +2,7 @@
 <div mat-dialog-content>
 	<mat-form-field>
 		<mat-label>Wpisz nową nazwe </mat-label>
-		<input matInput #newTitle [(ngModel)]="data.title" />
+		<input matInput [(ngModel)]="data.title" />
 	</mat-form-field>
 </div>
 <div mat-dialog-actions>
@@ -13,4 +13,5 @@
 	>
 		ok
 	</button>
+	<button mat-button (click)="onNoClick()">Wyjdź</button>
 </div>
