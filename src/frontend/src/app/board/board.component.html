@@ -91,7 +91,10 @@
 						[value]="todo.isDone"
 						[selected]="todo.isDone"
 					>
-						{{ todo.title }}
+						{{ todo.title }}<br />
+						<div [ngStyle]="deadlineStyle">
+							{{ todo.deadline | date: "dd/MM/yy" }}
+						</div>
 					</mat-list-option>
 				</mat-selection-list>
 			</div>

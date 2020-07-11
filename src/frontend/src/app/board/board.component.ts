@@ -22,6 +22,10 @@ import { UpdateDialogComponent } from "../update-dialog/update-dialog.component"
 export class BoardComponent implements OnInit {
 	boardId: string;
 	todos: getTodos_board_todos[];
+	deadlineStyle = {
+		color: "gray",
+		fontSize: "10pt",
+	};
 	isHandset$: Observable<boolean> = this.breakpointObserver
 		.observe(Breakpoints.Handset)
 		.pipe(
@@ -35,17 +39,23 @@ export class BoardComponent implements OnInit {
 		private breakpointObserver: BreakpointObserver,
 		public dialog: MatDialog
 	) {}
+	// Dialog
 
 	openDialog(todoId$) {
 		const i = this.todos.findIndex((t) => t.id === todoId$);
 		const dialogRef = this.dialog.open(UpdateDialogComponent, {
-			data: { todoId: todoId$, title: this.todos[i].title },
+			data: {
+				todoId: todoId$,
+				title: this.todos[i].title,
+				deadline: this.todos[i].deadline,
+			},
 		});
 
 		dialogRef.afterClosed().subscribe((result) => {
-			console.log(`Dialog result: ${result}`);
-			if (result !== undefined) {
-				this.todos[i].title = result;
+			console.log(`Dialog result: ${result.title}`);
+			if (result.title !== undefined) {
+				this.todos[i].title = result.title;
+				this.todos[i].deadline = result.deadline;
 			}
 		});
 	}

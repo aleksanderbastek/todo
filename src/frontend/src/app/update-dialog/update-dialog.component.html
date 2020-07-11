@@ -4,12 +4,19 @@
 		<mat-label>Wpisz nową nazwe </mat-label>
 		<input matInput [(ngModel)]="data.title" />
 	</mat-form-field>
+	<br />
+	<mat-form-field>
+		<mat-label>Zmień termin</mat-label>
+		<input matInput [matDatepicker]="picker" [(ngModel)]="data.deadline" />
+		<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+		<mat-datepicker #picker></mat-datepicker>
+	</mat-form-field>
 </div>
 <div mat-dialog-actions>
 	<button
 		mat-button
-		[mat-dialog-close]="data.title"
-		(click)="updateMyTodo(data.todoId, data.title)"
+		[mat-dialog-close]="data"
+		(click)="updateMyTodo(data.todoId, data.title, picker)"
 	>
 		ok
 	</button>

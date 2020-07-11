@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, Input } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { ApiService } from "../api.service";
 
@@ -15,8 +15,9 @@ export class UpdateDialogComponent implements OnInit {
 	) {}
 
 	updateMyTodo(todoId, title, deadline?) {
+		this.data.deadline = deadline._validSelected;
 		this.api
-			.updateMyTodo(todoId, title, deadline)
+			.updateMyTodo(todoId, title, deadline._validSelected)
 			.subscribe((data) => console.log(data));
 	}
 	onNoClick(): void {

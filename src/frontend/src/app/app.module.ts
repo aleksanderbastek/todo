@@ -30,6 +30,7 @@ import { environment } from "src/environments/environment";
 import { MatDialogModule } from "@angular/material/dialog";
 import { UpdateDialogComponent } from "./update-dialog/update-dialog.component";
 import { FormsModule } from "@angular/forms";
+import { MatNativeDateModule } from "@angular/material/core";
 
 @NgModule({
 	declarations: [
@@ -54,6 +55,7 @@ import { FormsModule } from "@angular/forms";
 		MatToolbarModule,
 		MatSidenavModule,
 		MatDatepickerModule,
+		MatNativeDateModule,
 
 		ApolloModule,
 		HttpLinkModule,
