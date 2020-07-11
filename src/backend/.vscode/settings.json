@@ -4,7 +4,6 @@
 	"editor.formatOnSave": true,
 	"files.exclude": {
 		"**/bin": true,
-		"**/obj": true,
-		"**/.vscode": true
+		"**/obj": true
 	}
 }
