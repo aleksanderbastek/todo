@@ -2,19 +2,18 @@
 using HotChocolate.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using TodoApp.GraphQL.Types;
-using HotChocolate.AspNetCore.Voyager;
 using TodoApp.Api.Query;
 using TodoApp.Api.Mutation;
+using GraphQLUi = GraphQL.Server.Ui;
 
 namespace TodoApp.Graphql
 {
 	public static class GraphQLServiceSetup
-    {
-        public static IServiceCollection AddGraphQLSetup(this IServiceCollection services)
-        {
+	{
+		public static IServiceCollection AddGraphQLSetup(this IServiceCollection services)
+		{
 			var schemaBuilder = SchemaBuilder.New()
 				.AddQueryType(d => d.Name("Query"))
 				.AddMutationType(d => d.Name("Mutation"))
@@ -22,23 +21,37 @@ namespace TodoApp.Graphql
 				.AddRoot<TodoMutationRoot>(services);
 
 			services.AddGraphQL(sp => schemaBuilder
-                .AddServices(sp)
-                .Create()
-            );
+				.AddServices(sp)
+				.Create()
+			);
 
-            return services;
-        }
+			return services;
+		}
 
-        public static IApplicationBuilder UseGraphQLSetup(this IApplicationBuilder app, IHostEnvironment env) {
-            app.UseGraphQL("/graphql");
+		public static IApplicationBuilder UseGraphQLSetup(this IApplicationBuilder app, IHostEnvironment env)
+		{
+			app.UseGraphQL("/graphql");
 
-            if (env.IsDevelopment()) {
-                app
-                    .UsePlayground("/graphql", "/graphql/playground")
-                    .UseVoyager("/graphql", "/graphql/voyager");
-            }
+			if (env.IsDevelopment())
+			{
+				GraphQLUi.Playground.PlaygroundExtensions.UseGraphQLPlayground(app,
+					new GraphQLUi.Playground.GraphQLPlaygroundOptions
+					{
+						GraphQLEndPoint = "/graphql",
+						Path = "/graphql/playground"
+					}
+				);
 
-            return app;
-        }
-    }
+				GraphQLUi.Voyager.VoyagerExtensions.UseGraphQLVoyager(app,
+					new GraphQLUi.Voyager.GraphQLVoyagerOptions
+					{
+						GraphQLEndPoint = "/graphql",
+						Path = "/graphql/voyager"
+					}
+				);
+			}
+
+			return app;
+		}
+	}
 }
