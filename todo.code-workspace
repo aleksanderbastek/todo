@@ -24,7 +24,8 @@
 			"ms-azuretools.vscode-docker",
 			"editorconfig.editorconfig",
 			"esbenp.prettier-vscode",
-			"pflannery.vscode-versionlens"
+			"pflannery.vscode-versionlens",
+			"ms-vscode.powershell"
 		]
 	},
 	"settings": {}
