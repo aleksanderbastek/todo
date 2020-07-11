@@ -4,18 +4,63 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Build TodoApp in debug configuration",
+			"label": "Restore: frontend",
 			"type": "shell",
-			"command": "docker-compose -f src/docker-compose.yml -f src/docker-compose.dev.yml build"
+			"command": "pwsh ./src/scripts/restore.ps1 frontend",
+			"problemMatcher": []
 		},
 		{
-			"label": "Run TodoApp in debug configuration",
+			"label": "Restore: backend",
 			"type": "shell",
-			"command": "docker-compose -f src/docker-compose.yml -f src/docker-compose.dev.yml up --remove-orphans",
-			"dependsOn": ["Build TodoApp in debug configuration"],
-			"runOptions": {
-				"runOn": "folderOpen"
-			},
+			"command": "pwsh ./src/scripts/restore.ps1 backend",
+			"problemMatcher": []
+		},
+		{
+			"label": "Restore: all",
+			"type": "shell",
+			"command": "pwsh ./src/scripts/restore.ps1 all",
+			"problemMatcher": []
+		},
+		{
+			"label": "Build: docker images",
+			"type": "shell",
+			"command": "pwsh ./src/scripts/build.ps1",
+			"problemMatcher": []
+		},
+		{
+			"label": "Start: development environment",
+			"type": "shell",
+			"command": "pwsh ./src/scripts/start.ps1",
+			"problemMatcher": []
+		},
+		{
+			"label": "Stop: development environment",
+			"type": "shell",
+			"command": "pwsh ./src/scripts/stop.ps1",
+			"problemMatcher": []
+		},
+		{
+			"label": "Prune: development environment",
+			"type": "shell",
+			"command": "pwsh ./src/scripts/prune.ps1",
+			"problemMatcher": []
+		},
+		{
+			"label": "Cleanup: frontend",
+			"type": "shell",
+			"command": "pwsh ./src/scripts/cleanup.ps1 frontend",
+			"problemMatcher": []
+		},
+		{
+			"label": "Cleanup: backend",
+			"type": "shell",
+			"command": "pwsh ./src/scripts/cleanup.ps1 backend",
+			"problemMatcher": []
+		},
+		{
+			"label": "Cleanup: all",
+			"type": "shell",
+			"command": "pwsh ./src/scripts/cleanup.ps1 all",
 			"problemMatcher": []
 		}
 	]
