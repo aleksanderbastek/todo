@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  todoapp-fluentd-ui:
+    container_name: TodoApp.FluentdUi
+    build: ./fluentd-ui
+    ports:
+      - "9000:9292"
+
+  todoapp-fluentd:
+    container_name: TodoApp.Fluentd
+    build: ./fluentd
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    depends_on:
+      - todoapp-elasticsearch
+    networks:
+      - todoapp-fluentd
+
+  todoapp-elasticsearch:
+    container_name: TodoApp.ElasticSearch
+    image: elasticsearch:7.8.0
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.type=single-node
+    expose:
+      - 9200
+    ports:
+      - "9200:9200"
+    networks:
+      - todoapp-fluentd
+
+  todoapp-kibana:
+    container_name: TodoApp.Kibana
+    image: kibana:7.8.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://todoapp-elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - todoapp-elasticsearch
+    networks:
+      - todoapp-fluentd
+
+networks:
+  todoapp-fluentd:
