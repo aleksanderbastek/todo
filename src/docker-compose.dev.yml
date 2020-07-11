@@ -16,8 +16,6 @@ services:
       - todoapp-client
       - todoapp-server
       - todoapp-pgadmin
-    logging:
-      driver: none
 
   todoapp-client:
     container_name: Dev.TodoApp.Client
@@ -51,8 +49,6 @@ services:
       - todoapp-database-dev:/var/lib/postgresql/data
     networks:
       - todoapp-internal-dev
-    logging:
-      driver: none
 
   todoapp-pgadmin:
     container_name: Dev.TodoApp.PgAdmin
@@ -63,8 +59,6 @@ services:
       - todoapp-internal-dev
     volumes:
       - todoapp-pgadmin-dev:/var/lib/pgadmin
-    logging:
-      driver: none
 
 networks:
   todoapp-internal-dev:
