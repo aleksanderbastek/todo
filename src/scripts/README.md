@@ -60,9 +60,11 @@ At first, run make sure you have all the required software installed. Then run c
 
 -   `cleanup`
 
-    Removes restore and builds artifacts.<br/>
-    Usage: `pwsh cleanup.ps1 <PROJECT>`.<br/>
-    Where `<PROJECT>` can be: `frontend`, `backend`, `all`.
+    Removes restore, builds artifacts or nginx certificates.<br/>
+    Usage: `pwsh cleanup.ps1 <PROJECTS>`.<br/>
+    Where `<PROJECTS>` can be: `frontend`, `backend`, `nginx-certs`, `all`.<br/>
+    First example: `pwsh cleanup.ps1 frontend`.<br/>
+    Second example: `pwsh cleanup.ps1 frontend backend`.
 
 ## Proposed usage
 
@@ -72,9 +74,10 @@ At first, run make sure you have all the required software installed. Then run c
 -   Use `stop` command if you want to stop development environment
 -   Use `prune` command with `-Full` flag if you have problems with `start` command or want to remove every container, network and volume, if you want to keep your volumes do not add the `-Full` flag
 -   Use `cleanup` command if you want to remove restore and build artifacts:
-    -   `cleanup.ps1 frontend` for: `node_modules` and `dist` of npm project, or
+    -   `cleanup.ps1 frontend` for: `node_modules` and `dist` of npm project
     -   `cleanup.ps1 backend` for: `obj` and `bin` of dotnet core project
-    -   `cleanup.ps1 all` for both: `frontend` and `backend`
+    -   `cleanup.ps1 nginx-certs` for: nginx certificates stored at `./src/nginx/certs` directory
+    -   `cleanup.ps1 all` for all: `frontend`, `backend` and `nginx-certs`
 
 Then your environment is up and running.
 
