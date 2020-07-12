@@ -7,6 +7,8 @@ import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { Observable } from "rxjs";
 import { map, shareReplay } from "rxjs/operators";
 
+import { DatePipe, formatDate } from "@angular/common";
+
 import {
 	MatDialog,
 	MatDialogRef,
@@ -22,8 +24,13 @@ import { UpdateDialogComponent } from "../update-dialog/update-dialog.component"
 export class BoardComponent implements OnInit {
 	boardId: string;
 	todos: getTodos_board_todos[];
+
 	deadlineStyle = {
 		color: "gray",
+		fontSize: "10pt",
+	};
+	overDeadlineStyle = {
+		color: "red",
 		fontSize: "10pt",
 	};
 	isHandset$: Observable<boolean> = this.breakpointObserver
@@ -39,6 +46,7 @@ export class BoardComponent implements OnInit {
 		private breakpointObserver: BreakpointObserver,
 		public dialog: MatDialog
 	) {}
+
 	// Dialog
 
 	openDialog(todoId$) {
@@ -78,6 +86,27 @@ export class BoardComponent implements OnInit {
 		return this.api.getMyTodo(id);
 	}
 
+	getMyAllTodos() {
+		this.getMyTodos(this.boardId, 30);
+	}
+
+	getMyDoneTodos() {
+		this.api.getMyDoneTodos(this.boardId, 30).subscribe((data: any) => {
+			this.todos = data.data.board.doneTodos;
+		});
+	}
+
+	getMyUndoneTodos() {
+		this.api.getMyUndoneTodos(this.boardId, 30).subscribe((data: any) => {
+			this.todos = data.data.board.undoneTodos;
+		});
+	}
+
+	getTodosWithDeadline() {
+		this.api.getMyTodos(this.boardId, 30).subscribe((data: any) => {
+			this.todos = data.data.board.todos.filter((t) => t.deadline);
+		});
+	}
 	// mutacje
 
 	createMyTodo(name: string) {
@@ -108,21 +137,6 @@ export class BoardComponent implements OnInit {
 			this.api.markMyTodoAsDone(id).subscribe();
 			this.todos[i].isDone = true;
 		}
-	}
-	getMyAllTodos() {
-		this.getMyTodos(this.boardId, 30);
-	}
-
-	getMyDoneTodos() {
-		this.api.getMyDoneTodos(this.boardId, 30).subscribe((data: any) => {
-			this.todos = data.data.board.doneTodos;
-		});
-	}
-
-	getMyUndoneTodos() {
-		this.api.getMyUndoneTodos(this.boardId, 30).subscribe((data: any) => {
-			this.todos = data.data.board.undoneTodos;
-		});
 	}
 
 	ngOnInit(): void {
