@@ -46,6 +46,12 @@
 			"problemMatcher": []
 		},
 		{
+			"label": "Prune: development environment including volumes",
+			"type": "shell",
+			"command": "pwsh ./src/scripts/prune.ps1 -Full",
+			"problemMatcher": []
+		},
+		{
 			"label": "Cleanup: frontend",
 			"type": "shell",
 			"command": "pwsh ./src/scripts/cleanup.ps1 frontend",
@@ -55,6 +61,12 @@
 			"label": "Cleanup: backend",
 			"type": "shell",
 			"command": "pwsh ./src/scripts/cleanup.ps1 backend",
+			"problemMatcher": []
+		},
+		{
+			"label": "Cleanup: nginx certificates",
+			"type": "shell",
+			"command": "pwsh ./src/scripts/cleanup.ps1 nginx-certs",
 			"problemMatcher": []
 		},
 		{
