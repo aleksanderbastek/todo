@@ -11,12 +11,12 @@ const routes: Routes = [
 		data: { title: "board list" },
 	},
 	{
-		path: "start",
+		path: "",
 		component: StartComponent,
 		data: { title: "start" },
 	},
 
-	{ path: "", redirectTo: "/start", pathMatch: "full" },
+	{ path: "", redirectTo: "", pathMatch: "full" },
 ];
 
 @NgModule({
