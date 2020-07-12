@@ -94,6 +94,8 @@ Available ones are:
 -   `Start: development environment` is `start` command: `pwsh ./src/scripts/start.ps1`
 -   `Stop: development environment` is `stop` command: `pwsh ./src/scripts/stop.ps1`
 -   `Prune: development environment` is `prune` command: `pwsh ./src/scripts/prune.ps1`
+-   `Prune: development environment including volumes` is `prune` command: `pwsh ./src/scripts/prune.ps1 -Full`
 -   `Cleanup: frontend` is `cleanup frontend` command: `pwsh ./src/scripts/cleanup.ps1 frontend`
 -   `Cleanup: backend` is `cleanup backend` command: `pwsh ./src/scripts/cleanup.ps1 backend`
+-   `Cleanup: nginx certificates` is `cleanup backend` command: `pwsh ./src/scripts/cleanup.ps1 nginx-certs`
 -   `Cleanup: all` is `cleanup all` command: `pwsh ./src/scripts/cleanup.ps1 all`
