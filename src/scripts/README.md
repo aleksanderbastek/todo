@@ -12,7 +12,7 @@ There are available some helpful scripts that are also available as VS Code task
 
 ## Quick first run
 
-At first run make sure you have all required software installed. Then run commands in the following way:
+At first, run make sure you have all the required software installed. Then run commands in the following way:
 
 -   `restore all` using VS Code task `Restore: all` or `pwsh ./src/scripts/restore.ps1 all` command in terminal
 -   `build` using VS Code task `Build: docker images` or `pwsh ./src/scripts/build.ps1` command in terminal
@@ -55,7 +55,7 @@ At first run make sure you have all required software installed. Then run comman
 
     Equivalent for `docker-compose down`.<br/>
     Usage: `pwsh prune.ps1`.<br/>
-    You can use `-Full` flag if you want to remove application volumens but you don't have to.<br/>
+    You can use `-Full` flag if you want to remove application volumes but you don't have to.<br/>
     Example: `pwsh prune.ps1` or `pwsh prune.ps1 -Full`.
 
 -   `cleanup`
@@ -80,7 +80,7 @@ Then your environment is up and running.
 
 ## Visual Studio Code tasks
 
-To access available tasks type `Ctrl + Shift + P` on Windows or equivalent on other systems, select `Tasks: Run Task` and then select task you want to run.
+To access available tasks type `Ctrl + Shift + P` on Windows or equivalent on other systems, select `Tasks: Run Task` and then select the task you want to run.
 
 Available ones are:
 
