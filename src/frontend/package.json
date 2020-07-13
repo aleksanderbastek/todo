@@ -4,7 +4,7 @@
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve",
-		"start-in-container": "ng serve --poll=1500 --host=0.0.0.0 --port=80",
+		"start-in-container": "ng serve --poll=1500 --host=0.0.0.0 --port=80 --disable-host-check",
 		"build": "ng build",
 		"test": "ng test",
 		"lint": "ng lint",

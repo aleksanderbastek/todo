@@ -20,16 +20,14 @@ using TodoApp.Graphql;
 namespace TodoApp.Server
 {
 	public class Startup
-    {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
-        {
-			services.AddDbContext<TodoDbContext>(optionsBuilder =>
-				optionsBuilder.UseNpgsql(
-					"Host=pg-db;Database=todo_app;Username=admin;Password=SimplePassword1"
-				), ServiceLifetime.Transient
-			);
+	{
+		// This method gets called by the runtime. Use this method to add services to the container.
+		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+		public void ConfigureServices(IServiceCollection services)
+		{
+			services.AddDbContext<TodoDbContext>(optionsBuilder => optionsBuilder.UseNpgsql(
+				Environment.GetEnvironmentVariable("MAIN_DB_CONNECTION_STRING")
+			), ServiceLifetime.Transient);
 
 			services
 				// Board repositories
@@ -50,23 +48,25 @@ namespace TodoApp.Server
 
 			services.AddCqrsSetup();
 			services.AddGraphQLSetup();
-        }
+		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-			using (var serviceScope = app.ApplicationServices.CreateScope()) {
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		{
+			using (var serviceScope = app.ApplicationServices.CreateScope())
+			{
 				var logger = serviceScope.ServiceProvider.GetService<ILogger<Startup>>();
 				var context = serviceScope.ServiceProvider.GetService<TodoDbContext>();
 
 				var pendingMigrationsCount = context.Database.GetPendingMigrations().Count();
 				var migrationsPluralForm = "migration" + (pendingMigrationsCount > 1 ? "s" : "");
 
-				if (pendingMigrationsCount > 0) {
+				if (pendingMigrationsCount > 0)
+				{
 					logger.LogWarning(
-                        $"Merging {pendingMigrationsCount} pending " +
-                        $"{migrationsPluralForm} into database"
-                    );
+						$"Merging {pendingMigrationsCount} pending " +
+						$"{migrationsPluralForm} into database"
+					);
 
 					context.Database.Migrate();
 
@@ -81,7 +81,8 @@ namespace TodoApp.Server
 					context.Model
 				);
 
-				if (modelSnapshotIsDifferent) {
+				if (modelSnapshotIsDifferent)
+				{
 					var errorMessage =
 						"Actual model snapshot differs ModelSnapshot applied to database!\n" +
 						"Model must be up to date with the latest ModelSnapshot to run this application.\n" +
@@ -96,28 +97,30 @@ namespace TodoApp.Server
 			app.UseCors("AllowAll");
 
 			if (env.IsDevelopment())
-            {
-                app
-                    .UseDeveloperExceptionPage()
-                    .UseRouting()
-                    .UseEndpoints(endpoints => {
-                        endpoints.MapGet("/", async context =>
-                        {
-                            await context.Response.WriteAsync(
-                                "<html><body>" +
-                                "<h1>This is a GraphQL backend</h1>" +
-                                "<p style=\"font-size: 1.5rem\"> " + 
-                                "GraphQL endpoint: <a href=\"/graphql\">/graphql</a>.<br />" +
-                                "GraphQL Playground: <a href=\"/graphql/playground\">/graphql/playground</a>.<br />" +
-                                "GraphQL Voyager: <a href=\"/graphql/voyager\">/graphql/voyager</a>.<br />" +
-                                "PgAdmin 4: <a href=\"http://localhost:5050/\">http://localhost:5050</a>.</p>" +
-                                "</body></html>"
-                            );
-                        });
-                    });
-            }
-            
-            app.UseGraphQLSetup(env);
-        }
-    }
+			{
+				app
+					.UseDeveloperExceptionPage()
+					.UseRouting()
+					.UseEndpoints(endpoints =>
+					{
+						endpoints.MapGet("/", async context =>
+						{
+							await context.Response.WriteAsync(
+								"<html><body>" +
+								"<h1>This is a GraphQL server</h1>" +
+								"<p style=\"font-size: 1.5rem\"> " +
+								"Frontend application: <a href=\"/start\">/start</a>.<br />" +
+								"GraphQL endpoint: <a href=\"/graphql\">/graphql</a>.<br />" +
+								"GraphQL Playground: <a href=\"/graphql/playground\">/graphql/playground</a>.<br />" +
+								"GraphQL Voyager: <a href=\"/graphql/voyager\">/graphql/voyager</a>.<br />" +
+								"PgAdmin 4: <a href=\"/pgadmin/\">/pgadmin</a>.</p>" +
+								"</body></html>"
+							);
+						});
+					});
+			}
+
+			app.UseGraphQLSetup(env);
+		}
+	}
 }

@@ -1,49 +1,71 @@
-version: "3.4"
+version: "3.8"
 
 services:
+  todoapp-proxy:
+    container_name: Dev.TodoApp.Proxy
+    image: nginx:1.18.0-alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/config:/etc/nginx
+      - ./nginx/certs:/etc/ssl/private
+    networks:
+      - todoapp-internal-dev
+    depends_on:
+      - todoapp-client
+      - todoapp-server
+      - todoapp-pgadmin
+
   todoapp-client:
+    container_name: Dev.TodoApp.Client
     build:
       context: ./frontend
       dockerfile: ./Dockerfile.dev
-    ports:
-      - 4000:80
     volumes:
       - ./frontend:/app
+    networks:
+      - todoapp-internal-dev
 
   todoapp-server:
+    container_name: Dev.TodoApp.Server
     build:
       context: ./backend
       dockerfile: ./TodoApp.Server/Dockerfile.dev
-    ports:
-      - 5000:80
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - MAIN_DB_CONNECTION_STRING=Host=todoapp-database;Database=todo_app;Username=admin;Password=SimplePassword1;
     volumes:
-      - ~/.vsdbg:/remote_debugger:rw
       - ./backend:/src
+    networks:
+      - todoapp-internal-dev
 
-  pg-db:
+  todoapp-database:
+    container_name: Dev.TodoApp.Database
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: SimplePassword1
-    logging:
-      driver: none
+    volumes:
+      - todoapp-database-dev:/var/lib/postgresql/data
+    networks:
+      - todoapp-internal-dev
 
-  pg-admin:
-    image: dpage/pgadmin4
-    container_name: TodoApp.PgAdmin
+  todoapp-pgadmin:
+    container_name: Dev.TodoApp.PgAdmin
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@backend.com
       PGADMIN_DEFAULT_PASSWORD: SimplePassword1
-    ports:
-      - "5050:80"
     networks:
-      - backend
-    depends_on:
-      - pg-db
-    logging:
-      driver: none
-    restart: always
+      - todoapp-internal-dev
+    volumes:
+      - todoapp-pgadmin-dev:/var/lib/pgadmin
 
 networks:
-  backend:
+  todoapp-internal-dev:
+    name: Dev.TodoApp.Internal
+
+volumes:
+  todoapp-database-dev:
+    name: Dev.TodoApp.Database
+  todoapp-pgadmin-dev:
+    name: Dev.TodoApp.PgAdmin

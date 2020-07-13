@@ -5,12 +5,12 @@
 	- [ ] Deleting boards using special "DELETE THIS BOARD" button
 	- [ ] Updating board title and description
 	- [x] Adding todos to board
-	- [ ] Changing todo title
+	- [x] Changing todo title
 	- [x] Removing todos permanently
 	- [x] Marking todos as done
 	- [x] Marking todos as undone
-	- [ ] Ability to add todo deadline
-	- [ ] Ability to change or remove todo deadline (if exists)
+	- [x] Ability to add todo deadline
+	- [x] Ability to change or remove todo deadline (if exists)
 	- [ ] Highlighting todos with deadline
 	- [ ] Filtering todos for undone todos (default), done todos, todos with deadline, all todos (no filter)
 	- [ ] Sorting todos by specified criteria (creation date, done date (if done), time to deadline)
