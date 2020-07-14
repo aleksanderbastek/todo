@@ -11,7 +11,7 @@
 	- [x] Marking todos as undone
 	- [x] Ability to add todo deadline
 	- [x] Ability to change or remove todo deadline (if exists)
-	- [ ] Highlighting todos with deadline
+	- [x] Highlighting todos with deadline
 	- [ ] Filtering todos for undone todos (default), done todos, todos with deadline, all todos (no filter)
 	- [ ] Sorting todos by specified criteria (creation date, done date (if done), time to deadline)
 	- [ ] Every page with todos need to be paginated
