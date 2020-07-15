@@ -98,8 +98,9 @@ export class BoardComponent implements OnInit {
 		this.api.getMyTodos(this.boardId, 30).subscribe((data: any) => {
 			this.todos = data.data.board.todos.filter(
 				(t) =>
-					Date.parse(t.deadline) >= this.modifyDate(0).getTime() &&
-					Date.parse(t.deadline) < this.modifyDate(1).getTime()
+					Date.parse(t.deadline) >=
+						this.modifyDate(this.dateNow, 0).getTime() &&
+					Date.parse(t.deadline) < this.modifyDate(this.dateNow, 1).getTime()
 			);
 		});
 	}
@@ -108,8 +109,9 @@ export class BoardComponent implements OnInit {
 		this.api.getMyTodos(this.boardId, 30).subscribe((data: any) => {
 			this.todos = data.data.board.todos.filter(
 				(t) =>
-					Date.parse(t.deadline) >= this.modifyDate(1).getTime() &&
-					Date.parse(t.deadline) < this.modifyDate(2).getTime()
+					Date.parse(t.deadline) >=
+						this.modifyDate(this.dateNow, 1).getTime() &&
+					Date.parse(t.deadline) < this.modifyDate(this.dateNow, 2).getTime()
 			);
 		});
 	}
@@ -118,17 +120,18 @@ export class BoardComponent implements OnInit {
 		this.api.getMyTodos(this.boardId, 30).subscribe((data: any) => {
 			this.todos = data.data.board.todos.filter(
 				(t) =>
-					Date.parse(t.deadline) >= this.modifyDate(0).getTime() &&
-					Date.parse(t.deadline) < this.modifyDate(7).getTime()
+					Date.parse(t.deadline) >=
+						this.modifyDate(this.dateNow, 0).getTime() &&
+					Date.parse(t.deadline) < this.modifyDate(this.dateNow, 7).getTime()
 			);
 		});
 	}
 
-	modifyDate(days) {
+	modifyDate(source, days) {
 		return new Date(
-			`${this.dateNow.getMonth() + 1} ${
-				this.dateNow.getDate() + days
-			} ${this.dateNow.getFullYear()}`
+			`${source.getMonth() + 1} ${
+				source.getDate() + days
+			} ${source.getFullYear()}`
 		);
 	}
 
@@ -137,6 +140,37 @@ export class BoardComponent implements OnInit {
 	}
 	parseToNumber(date) {
 		return Number(date);
+	}
+
+	// Zapytania: Sortowanie
+
+	getTodosByCreationDate(creationDate) {
+		this.api.getMyTodos(this.boardId, 30).subscribe((data: any) => {
+			this.todos = data.data.board.todos.filter(
+				(t) =>
+					this.modifyDate(new Date(t.creationDate), 0).getTime() ===
+					creationDate._validSelected.getTime()
+			);
+		});
+	}
+
+	getTodosByDeadline(deadline) {
+		debugger;
+
+		this.api.getMyTodos(this.boardId, 30).subscribe((data: any) => {
+			this.todos = data.data.board.todos.filter(
+				(t) => Date.parse(t.deadline) === deadline._validSelected.getTime()
+			);
+		});
+	}
+	getTodosByDoneDate(doneDate) {
+		this.api.getMyTodos(this.boardId, 30).subscribe((data: any) => {
+			this.todos = data.data.board.todos.filter(
+				(t) =>
+					this.modifyDate(new Date(t.doneDate), 0).getTime() ===
+					doneDate._validSelected.getTime()
+			);
+		});
 	}
 
 	// !!!!!!!!!!!!!!!!!!! Modyfikacje !!!!!!!!!!!!!!!!!!!!!!
