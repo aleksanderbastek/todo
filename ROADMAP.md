@@ -13,7 +13,7 @@
 	- [x] Ability to change or remove todo deadline (if exists)
 	- [x] Highlighting todos with deadline
 	- [x] Filtering todos for undone todos (default), done todos, todos with deadline, all todos (no filter)
-	- [ ] Sorting todos by specified criteria (creation date, done date (if done), time to deadline)
+	- [x] Sorting todos by specified criteria (creation date, done date (if done), time to deadline)
 	- [ ] Every page with todos need to be paginated
 	- [ ] Search bar to help find specified todo by title
 	- [ ] Development help tool that allows developer to see all boards trough client application (for testing purposes)
