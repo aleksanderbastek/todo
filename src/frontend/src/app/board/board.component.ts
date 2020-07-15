@@ -24,6 +24,12 @@ import { UpdateDialogComponent } from "../update-dialog/update-dialog.component"
 export class BoardComponent implements OnInit {
 	boardId: string;
 	todos: getTodos_board_todos[];
+	dateNow = new Date();
+	calendarDate = new Date(
+		`${
+			this.dateNow.getMonth() + 1
+		} ${this.dateNow.getDate()} ${this.dateNow.getFullYear()}`
+	);
 
 	deadlineStyle = {
 		color: "gray",
@@ -47,28 +53,7 @@ export class BoardComponent implements OnInit {
 		public dialog: MatDialog
 	) {}
 
-	// Dialog
-
-	openDialog(todoId$) {
-		const i = this.todos.findIndex((t) => t.id === todoId$);
-		const dialogRef = this.dialog.open(UpdateDialogComponent, {
-			data: {
-				todoId: todoId$,
-				title: this.todos[i].title,
-				deadline: this.todos[i].deadline,
-			},
-		});
-
-		dialogRef.afterClosed().subscribe((result) => {
-			console.log(`Dialog result: ${result.title}`);
-			if (result.title !== undefined) {
-				this.todos[i].title = result.title;
-				this.todos[i].deadline = result.deadline;
-			}
-		});
-	}
-
-	// zapytania
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!! ZAPYTANIA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	getMyId() {
 		this.boardId = this.route.snapshot.paramMap.get("id");
 	}
@@ -101,13 +86,60 @@ export class BoardComponent implements OnInit {
 			this.todos = data.data.board.undoneTodos;
 		});
 	}
+	// Zapytania: Todos with deadline
 
 	getTodosWithDeadline() {
 		this.api.getMyTodos(this.boardId, 30).subscribe((data: any) => {
 			this.todos = data.data.board.todos.filter((t) => t.deadline);
 		});
 	}
-	// mutacje
+
+	getTodosForToday() {
+		this.api.getMyTodos(this.boardId, 30).subscribe((data: any) => {
+			this.todos = data.data.board.todos.filter(
+				(t) =>
+					Date.parse(t.deadline) >= this.modifyDate(0).getTime() &&
+					Date.parse(t.deadline) < this.modifyDate(1).getTime()
+			);
+		});
+	}
+
+	getTodosForTomorrow() {
+		this.api.getMyTodos(this.boardId, 30).subscribe((data: any) => {
+			this.todos = data.data.board.todos.filter(
+				(t) =>
+					Date.parse(t.deadline) >= this.modifyDate(1).getTime() &&
+					Date.parse(t.deadline) < this.modifyDate(2).getTime()
+			);
+		});
+	}
+
+	getTodosForThisWeek() {
+		this.api.getMyTodos(this.boardId, 30).subscribe((data: any) => {
+			this.todos = data.data.board.todos.filter(
+				(t) =>
+					Date.parse(t.deadline) >= this.modifyDate(0).getTime() &&
+					Date.parse(t.deadline) < this.modifyDate(7).getTime()
+			);
+		});
+	}
+
+	modifyDate(days) {
+		return new Date(
+			`${this.dateNow.getMonth() + 1} ${
+				this.dateNow.getDate() + days
+			} ${this.dateNow.getFullYear()}`
+		);
+	}
+
+	parseToDate(date) {
+		return new Date(date);
+	}
+	parseToNumber(date) {
+		return Number(date);
+	}
+
+	// !!!!!!!!!!!!!!!!!!! Modyfikacje !!!!!!!!!!!!!!!!!!!!!!
 
 	createMyTodo(name: string) {
 		name = name.trim();
@@ -139,9 +171,29 @@ export class BoardComponent implements OnInit {
 		}
 	}
 
+	// Dialog
+
+	openDialog(todoId$) {
+		const i = this.todos.findIndex((t) => t.id === todoId$);
+		const dialogRef = this.dialog.open(UpdateDialogComponent, {
+			data: {
+				todoId: todoId$,
+				title: this.todos[i].title,
+				deadline: this.todos[i].deadline,
+			},
+		});
+
+		dialogRef.afterClosed().subscribe((result) => {
+			if (result.title !== undefined) {
+				this.todos[i].title = result.title;
+				this.todos[i].deadline = result.deadline;
+			}
+		});
+	}
+
 	ngOnInit(): void {
 		this.getMyId();
 		this.getMyTodos(this.boardId, 30);
 	}
 }
-// boardId: 2a9a5417-c784-4457-bf78-c24e5c101dad
+// boardId: e3571312-90c2-41c1-9114-27f703fcccea

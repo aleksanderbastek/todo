@@ -7,7 +7,12 @@
 	<br />
 	<mat-form-field>
 		<mat-label>Zmień termin</mat-label>
-		<input matInput [matDatepicker]="picker" [(ngModel)]="data.deadline" />
+		<input
+			matInput
+			[matDatepicker]="picker"
+			[(ngModel)]="data.deadline"
+			[min]="minDate"
+		/>
 		<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 		<mat-datepicker #picker></mat-datepicker>
 	</mat-form-field>

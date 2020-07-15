@@ -56,6 +56,17 @@
 			<mat-list-item mat-list-item (click)="getTodosWithDeadline()"
 				>Zadania z terminem</mat-list-item
 			>
+			<mat-divider></mat-divider>
+
+			<mat-list-item mat-list-item (click)="getTodosForToday()"
+				>Zadania na dziś</mat-list-item
+			>
+			<mat-list-item mat-list-item (click)="getTodosForTomorrow()"
+				>Zadania na jutro</mat-list-item
+			>
+			<mat-list-item mat-list-item (click)="getTodosForThisWeek()"
+				>Zadania na najbliższy tydzień</mat-list-item
+			>
 		</mat-nav-list>
 	</mat-sidenav>
 	<mat-sidenav-content>
@@ -95,7 +106,13 @@
 						[selected]="todo.isDone"
 					>
 						{{ todo.title }}<br />
-						<div [ngStyle]="deadlineStyle">
+						<div
+							[ngStyle]="
+								parseToDate(todo.deadline) <= dateNow
+									? overDeadlineStyle
+									: deadlineStyle
+							"
+						>
 							{{ todo.deadline | date: "dd/MM/yy" }}
 						</div>
 					</mat-list-option>

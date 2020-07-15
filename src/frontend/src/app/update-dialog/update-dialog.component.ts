@@ -8,6 +8,8 @@ import { ApiService } from "../api.service";
 	styleUrls: ["./update-dialog.component.css"],
 })
 export class UpdateDialogComponent implements OnInit {
+	minDate = new Date();
+
 	constructor(
 		private api: ApiService,
 		public dialogRef: MatDialogRef<UpdateDialogComponent>,
@@ -18,11 +20,13 @@ export class UpdateDialogComponent implements OnInit {
 		this.data.deadline = deadline._validSelected;
 		this.api
 			.updateMyTodo(todoId, title, deadline._validSelected)
-			.subscribe((data) => console.log(data));
+			.subscribe((date) => console.log(date));
 	}
 	onNoClick(): void {
 		this.dialogRef.close();
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.minDate.setDate(this.minDate.getDate() + 1);
+	}
 }
