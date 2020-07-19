@@ -109,7 +109,7 @@ namespace TodoApp.Server
 								"<html><body>" +
 								"<h1>This is a GraphQL server</h1>" +
 								"<p style=\"font-size: 1.5rem\"> " +
-								"Frontend application: <a href=\"/start\">/start</a>.<br />" +
+								"Frontend application: <a href=\"/\">/</a>.<br />" +
 								"GraphQL endpoint: <a href=\"/graphql\">/graphql</a>.<br />" +
 								"GraphQL Playground: <a href=\"/graphql/playground\">/graphql/playground</a>.<br />" +
 								"GraphQL Voyager: <a href=\"/graphql/voyager\">/graphql/voyager</a>.<br />" +
