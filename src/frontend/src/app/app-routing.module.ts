@@ -15,8 +15,7 @@ const routes: Routes = [
 		component: StartComponent,
 		data: { title: "start" },
 	},
-
-	{ path: "", redirectTo: "/", pathMatch: "full" },
+	{ path: "", redirectTo: "/", pathMatch: "prefix" },
 ];
 
 @NgModule({
